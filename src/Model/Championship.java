@@ -1,21 +1,34 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Championship {
-
-    List<String> quarterFinalists;
-    List<String> semiFinalists;
-    List<String> finalists;
-    String champion;
+    private String[] quarterFinalists;
+    private String[] semiFinalists;
+    private String[] finalists;
+    private String champion;
 
     public enum Stages {Quarters, Semis, Finals}
 
     private Stages currentStage;
 
-    private void advanceToNextStage() {
-        currentStage = Stages.values()[currentStage.ordinal() + 1];
+    private void advanceToNextStage() throws MyException {
+        switch (currentStage) {
+            case Quarters:
+                if (getNumOfItems(quarterFinalists) == 4)
+                    currentStage = Stages.Semis;
+                else throw new MyException("Not All Spots Area Filled!");
+                break;
+            case Semis:
+                if (getNumOfItems(finalists) == 2)
+                    currentStage = Stages.Finals;
+                else throw new MyException("Not All Spots Area Filled!");
+                break;
+            default:
+                throw new MyException("Can't Advance Anymore");
+        }
     }
 
     public enum Sports {Tennis, Football, Basketball}
@@ -23,34 +36,80 @@ public class Championship {
     private Sports sport;
 
     public Championship() {
-        quarterFinalists = Arrays.asList(new String[8]);    // \
-        semiFinalists = Arrays.asList(new String[4]);       //  unmodifiable-size lists
-        finalists = Arrays.asList(new String[2]);           // /
+        quarterFinalists = new String[8];
+        semiFinalists = new String[4];
+        finalists = new String[2];
         currentStage = Stages.Quarters;
     }
 
+    public int getNumOfItems(String[] arr) {
+        int count = 0;
+        for (String s : arr) {
+            if (s != null)
+                count++;
+        }
+        return count;
+    }
+
+    public void addToArray(String item, String[] arr) throws MyException {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                arr[i] = item;
+                return;
+            }
+        }
+        throw new MyException("List Full!");
+    }
+
+    public void addPlayer(String player) throws MyException {
+        for (String quarterFinalist : quarterFinalists) {
+            if (quarterFinalist != null && quarterFinalist.equals(player))
+                throw new MyException("Player Already In List!");
+        }
+        if (player.trim().isEmpty())
+            throw new MyException("No Player Name!");
+        addToArray(player, quarterFinalists);
+    }
+
+
+    public List<String> getQuarterFinalists() {
+        return Arrays.asList(quarterFinalists);
+    }
+
+    public List<String> getSemiFinalists() {
+        return Arrays.asList(semiFinalists);
+    }
+
+    public List<String> getFinalists() {
+        return Arrays.asList(finalists);
+    }
+
+    public String getChampion() {
+        return champion;
+    }
+
     /*
-        Game position in the stage:
-        quarters: 4 games -> Positions: 1-4.
-        semis: 2 games -> Positions: 1-2.
-        finals: 1 positions.
-        this way it's easier to manage what players play from inside this class.
-     */
+                        Game position in the stage:
+                        quarters: 4 games -> Positions: 1-4.
+                        semis: 2 games -> Positions: 1-2.
+                        finals: 1 positions.
+                        this way it's easier to manage what players play from inside this class.
+                     */
     private String[] getPlayersFromGamePosition(int gamePosition) throws MyException {
         int p1Index = gamePosition * 2, p2Index = p1Index + 1;
         String p1, p2;
         switch (currentStage) {
             case Quarters:
-                p1 = quarterFinalists.get(p1Index);
-                p2 = quarterFinalists.get(p2Index);
+                p1 = quarterFinalists[p1Index];
+                p2 = quarterFinalists[p2Index];
                 break;
             case Semis:
-                p1 = semiFinalists.get(p1Index);
-                p2 = semiFinalists.get(p2Index);
+                p1 = semiFinalists[p1Index];
+                p2 = semiFinalists[p2Index];
                 break;
             case Finals:
-                p1 = finalists.get(p1Index);
-                p2 = finalists.get(p2Index);
+                p1 = finalists[p1Index];
+                p2 = finalists[p2Index];
                 break;
             default:
                 throw new MyException("no stage");
@@ -74,9 +133,22 @@ public class Championship {
             default:
                 throw new MyException("Unexpected Game Type!");
         }
-        return overtime ?
+
+        String winner = overtime ?
                 game.playOvertimeAndGetWinner(Championship.sumScores(p1Scores), Championship.sumScores(p2Scores)) :
                 game.playAndGetWinner(p1Scores, p2Scores);
+        switch (currentStage) {
+            case Quarters:
+                addToArray(winner, semiFinalists);
+                break;
+            case Semis:
+                addToArray(winner, finalists);
+                break;
+            case Finals:
+                champion = winner;
+                break;
+        }
+        return winner;
     }
 
     public static int sumScores(List<Integer> scores) {
