@@ -25,6 +25,15 @@ public class Controller {
             }
         });
         formView.showPlayers(championship.getQuarterFinalists());
+
+        formView.addEventHandlerToStartButton(event -> {
+            try {
+                championship.advanceToNextStage();
+                championship.setSport(Championship.Sports.valueOf(formView.getSport()));
+            } catch (Exception exception) {
+                alertForException(exception);
+            }
+        });
     }
 
     private void alertForException(Exception exception) {

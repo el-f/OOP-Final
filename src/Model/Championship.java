@@ -10,25 +10,34 @@ public class Championship {
     private String[] finalists;
     private String champion;
 
-    public enum Stages {Quarters, Semis, Finals}
+    public enum Stages {Groups, Quarters, Semis, Finals}
 
     private Stages currentStage;
 
-    private void advanceToNextStage() throws MyException {
+    public void advanceToNextStage() throws MyException {
         switch (currentStage) {
+            case Groups:
+                checkBeforeAdvance(quarterFinalists);
+                break;
             case Quarters:
-                if (getNumOfItems(quarterFinalists) == 4)
-                    currentStage = Stages.Semis;
-                else throw new MyException("Not All Spots Area Filled!");
+                checkBeforeAdvance(semiFinalists);
                 break;
             case Semis:
-                if (getNumOfItems(finalists) == 2)
-                    currentStage = Stages.Finals;
-                else throw new MyException("Not All Spots Area Filled!");
+                checkBeforeAdvance(finalists);
                 break;
             default:
                 throw new MyException("Can't Advance Anymore");
         }
+    }
+
+    private void checkBeforeAdvance(String[] arr) throws MyException {
+        if (getNumOfItems(arr) == arr.length)
+            currentStage = Stages.values()[currentStage.ordinal() + 1];
+        else throw new MyException("Not All Spots Are Filled!");
+    }
+
+    public void setSport(Sports sport) {
+        this.sport = sport;
     }
 
     public enum Sports {Tennis, Football, Basketball}
@@ -39,7 +48,7 @@ public class Championship {
         quarterFinalists = new String[8];
         semiFinalists = new String[4];
         finalists = new String[2];
-        currentStage = Stages.Quarters;
+        currentStage = Stages.Groups;
     }
 
     public int getNumOfItems(String[] arr) {
@@ -89,12 +98,12 @@ public class Championship {
     }
 
     /*
-                        Game position in the stage:
-                        quarters: 4 games -> Positions: 1-4.
-                        semis: 2 games -> Positions: 1-2.
-                        finals: 1 positions.
-                        this way it's easier to manage what players play from inside this class.
-                     */
+        Game position in the stage:
+        quarters: 4 games -> Positions: 1-4.
+        semis: 2 games -> Positions: 1-2.
+        finals: 1 positions.
+        this way it's easier to manage what players play from inside this class.
+     */
     private String[] getPlayersFromGamePosition(int gamePosition) throws MyException {
         int p1Index = gamePosition * 2, p2Index = p1Index + 1;
         String p1, p2;
@@ -112,7 +121,7 @@ public class Championship {
                 p2 = finalists[p2Index];
                 break;
             default:
-                throw new MyException("no stage");
+                throw new MyException("Unexpected Stage: " + currentStage);
         }
         return new String[]{p1, p2};
     }
@@ -147,6 +156,8 @@ public class Championship {
             case Finals:
                 champion = winner;
                 break;
+            default:
+                throw new MyException("Unexpected Stage: " + currentStage);
         }
         return winner;
     }

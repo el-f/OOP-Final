@@ -24,7 +24,7 @@ public class FormView {
     private RadioButton football;
     private BorderPane borderPane;
 
-    public FormView(List<String> players){
+    public FormView(List<String> players) {
         borderPane = new BorderPane();
         // center
         playerField = new TextField();
@@ -55,18 +55,28 @@ public class FormView {
         tennis.setSelected(true);
         VBox type = new VBox(tennis, basketBall, football);
         type.setAlignment(Pos.CENTER_LEFT);
-        type.setPadding(new Insets(0,15,0,0));
+        type.setPadding(new Insets(0, 15, 0, 0));
         borderPane.setRight(type);
         showPlayers(players);
     }
 
-    public void showPlayers(List<String> players){
+    public void showPlayers(List<String> players) {
         //left
         borderPane.setLeft(View.showPlayersFromList(players, 10));
     }
 
     public BorderPane getBorderPane() {
         return borderPane;
+    }
+
+    public String getSport() {
+        if (tennis.isSelected())
+            return "Tennis";
+        if (basketBall.isSelected())
+            return "Basketball";
+        if (football.isSelected())
+            return "Football";
+        return null;
     }
 
     public void addEventHandlerToAddButton(EventHandler<ActionEvent> addPlayerEventHandler) {
