@@ -2,7 +2,7 @@ package Model;
 
 import java.util.List;
 
-public class Game {
+public abstract class Game {
 
     protected String player1, player2;
     protected int rounds;
@@ -13,11 +13,11 @@ public class Game {
     }
 
     public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
-        if (p1Scores.size() != rounds || p2Scores.size() != rounds)
+        if (p1Scores.size() != p2Scores.size())
+            throw new MyException("uneven size of rounds lists");
+        if (p1Scores.size() != rounds)
             throw new MyException("Not All Rounds Played!");
-        return playOvertimeAndGetWinner(
-                p1Scores.stream().mapToInt(Integer::intValue).sum(),
-                p2Scores.stream().mapToInt(Integer::intValue).sum());
+        return playOvertimeAndGetWinner(Championship.sumScores(p1Scores), Championship.sumScores(p2Scores));
     }
 
     protected String playOvertimeAndGetWinner(int p1Score, int p2Score) throws MyException {
