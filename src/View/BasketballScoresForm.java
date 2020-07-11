@@ -22,5 +22,7 @@ public class BasketballScoresForm extends ScoresForm {
         p2Score2 = new TextField();
         p2Score3 = new TextField();
         p2ScoreFields.addAll(Arrays.asList(p2Score0, p2Score1, p2Score2, p2Score3));
+
+        buildVBoxForScoreFields();
     }
 }

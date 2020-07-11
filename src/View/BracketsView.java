@@ -22,22 +22,27 @@ public class BracketsView {
     public BracketsView() {
         borderPane = new BorderPane();
         disableProperties = new boolean[]{false, false, false, false, true, true, true};
-    }
-
-    public void showAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists, String champion) {
         playQuarter0 = new Button("Play Game");
         playQuarter1 = new Button("Play Game");
         playQuarter2 = new Button("Play Game");
         playQuarter3 = new Button("Play Game");
+
+        playSemi0 = new Button("Play Game");
+        playSemi1 = new Button("Play Game");
+
+        playFinals = new Button("Play Game");
+    }
+
+    public void showAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists, String champion) {
+
         VBox quarterButtons = new VBox(playQuarter0, playQuarter1, playQuarter2, playQuarter3);
         quarterButtons.setAlignment(Pos.CENTER);
         quarterButtons.setSpacing(75);
-        playSemi0 = new Button("Play Game");
-        playSemi1 = new Button("Play Game");
+
         VBox semiButtons = new VBox(playSemi0, playSemi1);
         semiButtons.setAlignment(Pos.CENTER);
         semiButtons.setSpacing(180);
-        playFinals = new Button("Play Game");
+
         VBox finalButton = new VBox(playFinals);
         finalButton.setAlignment(Pos.CENTER);
         updateDisableProperties();

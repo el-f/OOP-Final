@@ -32,8 +32,14 @@ public abstract class ScoresForm extends Form {
             textFieldList = p2ScoreFields;
         else throw new UnexpectedException("unexpected value: " + player);
         List<Integer> integerList = new ArrayList<>();
-        textFieldList.forEach(textField ->
-                integerList.add(Integer.parseInt(textField.getText())));
+        textFieldList.forEach(textField -> {
+            int score;
+            if (!textField.getText().trim().isEmpty()) {
+                score = Integer.parseInt(textField.getText());
+                integerList.add(score);
+            }
+        });
+
         return integerList;
     }
 
@@ -44,7 +50,7 @@ public abstract class ScoresForm extends Form {
         HBox p2Box = new HBox(player2);
         p2ScoreFields.forEach(sf -> p2Box.getChildren().add(sf));
         p2Box.setSpacing(15);
-        VBox all = new VBox(p1Box, p2Box);
+        VBox all = new VBox(p1Box, p2Box, submitButton);
         all.setSpacing(25);
         borderPane.setCenter(all);
     }

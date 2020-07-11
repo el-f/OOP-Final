@@ -16,5 +16,7 @@ public class OvertimeForm extends ScoresForm {
 
         p2Score = new TextField();
         p2ScoreFields.addAll(Collections.singletonList(p2Score));
+
+        buildVBoxForScoreFields();
     }
 }

@@ -19,5 +19,7 @@ public class FootballScoresForm extends ScoresForm {
         p2Score0 = new TextField();
         p2Score1 = new TextField();
         p2ScoreFields.addAll(Arrays.asList(p2Score0, p2Score1));
+
+        buildVBoxForScoreFields();
     }
 }

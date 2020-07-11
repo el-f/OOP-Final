@@ -25,5 +25,7 @@ public class TennisScoresForm extends ScoresForm {
         p2Score3 = new TextField();
         p2Score4 = new TextField();
         p2ScoreFields.addAll(Arrays.asList(p2Score0, p2Score1, p2Score2, p2Score3, p2Score4));
+
+        buildVBoxForScoreFields();
     }
 }

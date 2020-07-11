@@ -3,14 +3,14 @@ package Model;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Championship {
     private String[] quarterFinalists;
     private String[] semiFinalists;
     private String[] finalists;
     private String champion;
 
-    public enum Stages {Groups, Quarters, Semis, Finals}
-    private Stages currentStage;
+    public enum Stages {Quarters, Semis, Finals}
 
     public enum Sports {Tennis, Football, Basketball}
     private Sports sport;
@@ -31,39 +31,39 @@ public class Championship {
         quarterFinalists = new String[8];
         semiFinalists = new String[4];
         finalists = new String[2];
-        currentStage = Stages.Groups;
+//        currentStage = Stages.Groups;
     }
 
-    public void advanceToNextStage() throws MyException {
-        switch (currentStage) {
-            case Groups:
-                checkBeforeAdvance(quarterFinalists);
-                break;
-            case Quarters:
-                checkBeforeAdvance(semiFinalists);
-                break;
-            case Semis:
-                checkBeforeAdvance(finalists);
-                break;
-            default:
-                throw new MyException("Can't Advance Anymore");
-        }
-    }
+//    public void advanceToNextStage() throws MyException {
+//        switch (currentStage) {
+//            case Groups:
+//                checkBeforeAdvance(quarterFinalists);
+//                break;
+//            case Quarters:
+//                checkBeforeAdvance(semiFinalists);
+//                break;
+//            case Semis:
+//                checkBeforeAdvance(finalists);
+//                break;
+//            default:
+//                throw new MyException("Can't Advance Anymore");
+//        }
+//    }
 
-    private void checkBeforeAdvance(String[] arr) throws MyException {
-        if (getNumOfItems(arr) == arr.length)
-            currentStage = Stages.values()[currentStage.ordinal() + 1];
-        else throw new MyException("Not All Spots Are Filled!");
-    }
-
-    public int getNumOfItems(String[] arr) {
-        int count = 0;
-        for (String s : arr) {
-            if (s != null)
-                count++;
-        }
-        return count;
-    }
+//    private void checkBeforeAdvance(String[] arr) throws MyException {
+//        if (getNumOfItems(arr) == arr.length)
+//            currentStage = Stages.values()[currentStage.ordinal() + 1];
+//        else throw new MyException("Not All Spots Are Filled!");
+//    }
+//
+//    public int getNumOfItems(String[] arr) {
+//        int count = 0;
+//        for (String s : arr) {
+//            if (s != null)
+//                count++;
+//        }
+//        return count;
+//    }
 
     public void addToArray(String item, String[] arr) throws MyException {
         for (int i = 0; i < arr.length; i++) {
@@ -109,10 +109,10 @@ public class Championship {
         finals: 1 positions.
         this way it's easier to manage what players play from inside this class.
      */
-    public String[] getPlayersFromGamePosition(int gamePosition) throws MyException {
+    public String[] getPlayersFromGamePosition(int gamePosition, Stages stage) throws MyException {
         int p1Index = gamePosition * 2, p2Index = p1Index + 1;
         String p1, p2;
-        switch (currentStage) {
+        switch (stage) {
             case Quarters:
                 p1 = quarterFinalists[p1Index];
                 p2 = quarterFinalists[p2Index];
@@ -126,14 +126,14 @@ public class Championship {
                 p2 = finalists[p2Index];
                 break;
             default:
-                throw new MyException("Unexpected Stage: " + currentStage);
+                throw new MyException("Unexpected Stage: " + stage);
         }
         return new String[]{p1, p2};
     }
 
-    public void play(int gamePosition, List<Integer> p1Scores, List<Integer> p2Scores, boolean overtime) throws MyException {
+    public void play(int gamePosition, Stages stage, List<Integer> p1Scores, List<Integer> p2Scores, boolean overtime) throws MyException {
         Game game;
-        String[] players = getPlayersFromGamePosition(gamePosition);
+        String[] players = getPlayersFromGamePosition(gamePosition, stage);
         switch (sport) {
             case Tennis:
                 game = new TennisGame(players[0], players[1]);
@@ -151,7 +151,8 @@ public class Championship {
         String winner = overtime ?
                 game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
                 game.playAndGetWinner(p1Scores, p2Scores);
-        switch (currentStage) {
+
+        switch (stage) {
             case Quarters:
                 addToArray(winner, semiFinalists);
                 break;
@@ -162,13 +163,13 @@ public class Championship {
                 champion = winner;
                 break;
             default:
-                throw new MyException("Unexpected Stage: " + currentStage);
+                throw new MyException("Unexpected Stage: " + stage);
         }
-        try {
-            advanceToNextStage();
-        } catch (Exception e){
-            //not a problem. wait for all games.
-        }
+//        try {
+//            advanceToNextStage();
+//        } catch (Exception e){
+//            //not a problem. wait for all games.
+//        }
     }
 
     public static int sumScores(List<Integer> scores) {
