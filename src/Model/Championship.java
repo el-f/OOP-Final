@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +8,10 @@ public class Championship {
     private String[] semiFinalists;
     private String[] finalists;
     private String champion;
+
+    public String getSport() {
+        return sport.name();
+    }
 
     public enum Stages {Groups, Quarters, Semis, Finals}
 
@@ -67,7 +70,7 @@ public class Championship {
                 return;
             }
         }
-        throw new MyException("List Full!");
+        throw new MyException("Player List Is Full!");
     }
 
     public void addPlayer(String player) throws MyException {
@@ -144,7 +147,7 @@ public class Championship {
         }
 
         String winner = overtime ?
-                game.playOvertimeAndGetWinner(Championship.sumScores(p1Scores), Championship.sumScores(p2Scores)) :
+                game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
                 game.playAndGetWinner(p1Scores, p2Scores);
         switch (currentStage) {
             case Quarters:

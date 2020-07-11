@@ -15,24 +15,25 @@ import javafx.stage.Stage;
 import java.util.List;
 
 public class View {
-    protected BorderPane borderPane;
-    protected Alert alert;
-    protected Scene scene;
+    private BorderPane borderPane;
+    private Alert alert;
+    private Scene scene;
 
     public View(Stage primaryStage) {
         alert = new Alert(Alert.AlertType.ERROR);
         borderPane = new BorderPane();
 
-
-        scene = new Scene(borderPane, 900, 700);
+        scene = new Scene(borderPane, 1100, 700);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Championship");
         primaryStage.show();
     }
 
-    public void updateBorderPane(BorderPane _borderPane) {
+    public void updateBorderPane(BorderPane _borderPane, String sport) {
         borderPane = _borderPane;
-        HBox title = new HBox(new Text("Championship"));
+        String txt = "Championship";
+        txt += sport == null ? "" : " (" + sport + ")";
+        HBox title = new HBox(new Text(txt));
         title.setAlignment(Pos.CENTER);
         borderPane.setTop(title);
         scene.setRoot(borderPane);
@@ -49,7 +50,7 @@ public class View {
         players.forEach(x -> vBox.getChildren().add(buildTextFieldFromName(x)));
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(spacing);
-        vBox.setPadding(new Insets(0,0,0,15));
+        vBox.setPadding(new Insets(0, 0, 0, 15));
         return vBox;
     }
 
