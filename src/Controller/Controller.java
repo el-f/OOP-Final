@@ -5,6 +5,7 @@ import Model.MyException;
 import View.View;
 import View.PlayersForm;
 import View.BracketsView;
+import View.ScoresForm;
 import javafx.scene.control.Alert;
 
 public class Controller {
@@ -42,6 +43,7 @@ public class Controller {
                 alertForException(exception);
             }
         });
+
 
         bracketsView.addEventHandlerToPlayBtnQ0(event -> {
 

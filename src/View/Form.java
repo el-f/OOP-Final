@@ -13,6 +13,7 @@ public class Form {
 
     protected Form() {
         borderPane = new BorderPane();
+        submitButton = new Button();
     }
 
     public void addEventToSubmitButton(EventHandler<ActionEvent> eventHandler) {

@@ -32,7 +32,7 @@ public class PlayersForm extends Form {
         playerBox.setAlignment(Pos.CENTER);
         showPlayers(players);
 
-        submitButton = new Button("Add participant");
+        submitButton.setText("Add participant");
         startBtn = new Button("Start Championship");
         HBox buttonsBox = new HBox(submitButton, startBtn);
         buttonsBox.setSpacing(15);

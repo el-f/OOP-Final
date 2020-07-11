@@ -9,13 +9,26 @@ public class Championship {
     private String[] finalists;
     private String champion;
 
+    public enum Stages {Groups, Quarters, Semis, Finals}
+    private Stages currentStage;
+
+    public enum Sports {Tennis, Football, Basketball}
+    private Sports sport;
+
+    public void setSport(Sports sport) {
+        this.sport = sport;
+    }
+
     public String getSport() {
         return sport.name();
     }
 
-    public enum Stages {Groups, Quarters, Semis, Finals}
-
-    private Stages currentStage;
+    public Championship() {
+        quarterFinalists = new String[8];
+        semiFinalists = new String[4];
+        finalists = new String[2];
+        currentStage = Stages.Groups;
+    }
 
     public void advanceToNextStage() throws MyException {
         switch (currentStage) {
@@ -37,21 +50,6 @@ public class Championship {
         if (getNumOfItems(arr) == arr.length)
             currentStage = Stages.values()[currentStage.ordinal() + 1];
         else throw new MyException("Not All Spots Are Filled!");
-    }
-
-    public void setSport(Sports sport) {
-        this.sport = sport;
-    }
-
-    public enum Sports {Tennis, Football, Basketball}
-
-    private Sports sport;
-
-    public Championship() {
-        quarterFinalists = new String[8];
-        semiFinalists = new String[4];
-        finalists = new String[2];
-        currentStage = Stages.Groups;
     }
 
     public int getNumOfItems(String[] arr) {
@@ -102,12 +100,12 @@ public class Championship {
 
     /*
         Game position in the stage:
-        quarters: 4 games -> Positions: 1-4.
-        semis: 2 games -> Positions: 1-2.
+        quarters: 4 games -> Positions: 0-3.
+        semis: 2 games -> Positions: 0-1.
         finals: 1 positions.
         this way it's easier to manage what players play from inside this class.
      */
-    private String[] getPlayersFromGamePosition(int gamePosition) throws MyException {
+    public String[] getPlayersFromGamePosition(int gamePosition) throws MyException {
         int p1Index = gamePosition * 2, p2Index = p1Index + 1;
         String p1, p2;
         switch (currentStage) {
@@ -129,7 +127,7 @@ public class Championship {
         return new String[]{p1, p2};
     }
 
-    public String play(int gamePosition, List<Integer> p1Scores, List<Integer> p2Scores, boolean overtime) throws MyException {
+    public void play(int gamePosition, List<Integer> p1Scores, List<Integer> p2Scores, boolean overtime) throws MyException {
         Game game;
         String[] players = getPlayersFromGamePosition(gamePosition);
         switch (sport) {
@@ -162,7 +160,11 @@ public class Championship {
             default:
                 throw new MyException("Unexpected Stage: " + currentStage);
         }
-        return winner;
+        try {
+            advanceToNextStage();
+        } catch (Exception e){
+            //not a problem. wait for all games.
+        }
     }
 
     public static int sumScores(List<Integer> scores) {
