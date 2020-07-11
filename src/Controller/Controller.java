@@ -42,6 +42,28 @@ public class Controller {
                 alertForException(exception);
             }
         });
+
+        bracketsView.addEventHandlerToPlayBtnQ0(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnQ1(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnQ2(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnQ3(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnS0(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnS1(event -> {
+
+        });
+        bracketsView.addEventHandlerToPlayBtnF(event -> {
+
+        });
     }
 
     private void alertForException(Exception exception) {

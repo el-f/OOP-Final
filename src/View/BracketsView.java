@@ -1,7 +1,8 @@
 package View;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -16,10 +17,11 @@ public class BracketsView {
     private Button playQuarter0, playQuarter1, playQuarter2, playQuarter3;
     private Button playSemi0, playSemi1;
     private Button playFinals;
+    private boolean[] disableProperties;
 
     public BracketsView() {
         borderPane = new BorderPane();
-
+        disableProperties = new boolean[]{false, false, false, false, true, true, true};
     }
 
     public void showAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists, String champion) {
@@ -38,6 +40,7 @@ public class BracketsView {
         playFinals = new Button("Play Game");
         VBox finalButton = new VBox(playFinals);
         finalButton.setAlignment(Pos.CENTER);
+        updateDisableProperties();
         HBox all = new HBox(
                 View.showPlayersFromList(quarterFinalists, 25),
                 quarterButtons,
@@ -53,5 +56,46 @@ public class BracketsView {
 
     public BorderPane getBorderPane() {
         return borderPane;
+    }
+
+    public void addEventHandlerToPlayBtnQ0(EventHandler<ActionEvent> eventHandler) {
+        playQuarter0.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnQ1(EventHandler<ActionEvent> eventHandler) {
+        playQuarter1.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnQ2(EventHandler<ActionEvent> eventHandler) {
+        playQuarter2.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnQ3(EventHandler<ActionEvent> eventHandler) {
+        playQuarter3.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnS0(EventHandler<ActionEvent> eventHandler) {
+        playSemi0.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnS1(EventHandler<ActionEvent> eventHandler) {
+        playSemi1.setOnAction(eventHandler);
+    }
+
+    public void addEventHandlerToPlayBtnF(EventHandler<ActionEvent> eventHandler) {
+        playFinals.setOnAction(eventHandler);
+    }
+
+    public void toggleButton(int buttonPosition, boolean disable) {
+        disableProperties[buttonPosition] = disable;
+    }
+
+    private void updateDisableProperties() {
+        List<Button> buttons = Arrays.asList(playQuarter0, playQuarter1, playQuarter2, playQuarter3,
+                playSemi0, playSemi1,
+                playFinals);
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).setDisable(disableProperties[i]);
+        }
     }
 }

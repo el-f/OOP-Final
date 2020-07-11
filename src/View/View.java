@@ -1,7 +1,5 @@
 package View;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -47,7 +45,7 @@ public class View {
 
     public static VBox showPlayersFromList(List<String> players, int spacing) {
         VBox vBox = new VBox();
-        players.forEach(x -> vBox.getChildren().add(buildTextFieldFromName(x)));
+        players.forEach(p -> vBox.getChildren().add(buildTextFieldFromName(p)));
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(spacing);
         vBox.setPadding(new Insets(0, 0, 0, 15));
