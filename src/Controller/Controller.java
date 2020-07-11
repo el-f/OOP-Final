@@ -6,6 +6,10 @@ import View.View;
 import View.PlayersForm;
 import View.BracketsView;
 import View.ScoresForm;
+import View.BasketballScoresForm;
+import View.FootballScoresForm;
+import View.TennisScoresForm;
+import View.OvertimeForm;
 import javafx.scene.control.Alert;
 
 public class Controller {
@@ -38,7 +42,7 @@ public class Controller {
                         championship.getSemiFinalists(),
                         championship.getFinalists(),
                         championship.getChampion());
-                view.updateBorderPane(bracketsView.getBorderPane(), championship.getSport());
+                view.updateBorderPane(bracketsView.getBorderPane(), championship.getSportName());
             } catch (Exception exception) {
                 alertForException(exception);
             }
@@ -66,6 +70,20 @@ public class Controller {
         bracketsView.addEventHandlerToPlayBtnF(event -> {
 
         });
+    }
+
+    private ScoresForm getScoresForm(String player1, String player2, boolean overtime) {
+        if (overtime)
+            return new OvertimeForm(player1, player2);
+        switch (championship.getSport()) {
+            case Basketball:
+                return new BasketballScoresForm(player1, player2);
+            case Tennis:
+                return new TennisScoresForm(player1, player2);
+            case Football:
+                return new FootballScoresForm(player1, player2);
+        }
+        return null;
     }
 
     private void alertForException(Exception exception) {

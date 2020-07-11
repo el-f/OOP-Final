@@ -5,6 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,13 @@ public abstract class ScoresForm extends Form {
         p2ScoreFields = new ArrayList<>();
     }
 
-    public List<Integer> getScores(int player) {
-        List<TextField> textFieldList = player == 1 ? p1ScoreFields : p2ScoreFields;
+    public List<Integer> getScores(int player) throws UnexpectedException {
+        List<TextField> textFieldList;
+        if (player == 1)
+            textFieldList = p1ScoreFields;
+        else if (player == 2)
+            textFieldList = p2ScoreFields;
+        else throw new UnexpectedException("unexpected value: " + player);
         List<Integer> integerList = new ArrayList<>();
         textFieldList.forEach(textField ->
                 integerList.add(Integer.parseInt(textField.getText())));

@@ -19,8 +19,12 @@ public class Championship {
         this.sport = sport;
     }
 
-    public String getSport() {
+    public String getSportName() {
         return sport.name();
+    }
+
+    public Sports getSport() {
+        return sport;
     }
 
     public Championship() {
