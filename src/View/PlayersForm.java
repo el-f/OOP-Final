@@ -4,30 +4,26 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class FormView {
+public class PlayersForm extends Form {
     public TextField playerField;
-    private Button addPlayerBtn;
+    private Button submitButton;
     private Button startBtn;
     private RadioButton tennisRB;
     private RadioButton basketBallRB;
     private RadioButton footballRB;
-    private BorderPane borderPane;
 
-    public FormView(List<String> players) {
-        borderPane = new BorderPane();
+    public PlayersForm(List<String> players) {
+        super();
         // center
         playerField = new TextField();
         Text playerText = new Text("Participant name:");
@@ -36,9 +32,9 @@ public class FormView {
         playerBox.setAlignment(Pos.CENTER);
         showPlayers(players);
 
-        addPlayerBtn = new Button("Add participant");
+        submitButton = new Button("Add participant");
         startBtn = new Button("Start Championship");
-        HBox buttonsBox = new HBox(addPlayerBtn, startBtn);
+        HBox buttonsBox = new HBox(submitButton, startBtn);
         buttonsBox.setSpacing(15);
         buttonsBox.setAlignment(Pos.CENTER);
         VBox center = new VBox(playerBox, buttonsBox);
@@ -67,14 +63,6 @@ public class FormView {
         borderPane.setLeft(View.showPlayersFromList(players, 10));
     }
 
-    public Node getLeft(){
-        return borderPane.getLeft();
-    }
-
-    public BorderPane getBorderPane() {
-        return borderPane;
-    }
-
     public String getSport() {
         if (tennisRB.isSelected())
             return "Tennis";
@@ -83,15 +71,6 @@ public class FormView {
         if (footballRB.isSelected())
             return "Football";
         return null;
-    }
-
-    public void addEventHandlerToAddButton(EventHandler<ActionEvent> addPlayerEventHandler) {
-        addPlayerBtn.setOnAction(addPlayerEventHandler);
-        borderPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER){
-                addPlayerBtn.fire();
-            }
-        });
     }
 
     public void addEventHandlerToStartButton(EventHandler<ActionEvent> startEventHandler) {

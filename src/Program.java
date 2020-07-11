@@ -1,7 +1,6 @@
 import Controller.Controller;
 import Model.Championship;
 import View.View;
-import View.FormView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -3,7 +3,7 @@ package Controller;
 import Model.Championship;
 import Model.MyException;
 import View.View;
-import View.FormView;
+import View.PlayersForm;
 import View.BracketsView;
 import javafx.scene.control.Alert;
 
@@ -14,24 +14,24 @@ public class Controller {
     public Controller(Championship _championship, View _view) {
         championship = _championship;
         view = _view;
-        FormView formView = new FormView(championship.getQuarterFinalists());
-        view.updateBorderPane(formView.getBorderPane(), null);
-        formView.addEventHandlerToAddButton(event -> {
+        PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
+        view.updateBorderPane(playersForm.getBorderPane(), null);
+        playersForm.addEventToSubmitButton(event -> {
             try {
-                championship.addPlayer(formView.playerField.getText());
-                formView.showPlayers(championship.getQuarterFinalists());
-                view.updateBorderPane(formView.getBorderPane(), null);
+                championship.addPlayer(playersForm.playerField.getText());
+                playersForm.showPlayers(championship.getQuarterFinalists());
+                view.updateBorderPane(playersForm.getBorderPane(), null);
             } catch (Exception exception) {
                 alertForException(exception);
             }
         });
-        formView.showPlayers(championship.getQuarterFinalists());
+        playersForm.showPlayers(championship.getQuarterFinalists());
 
         BracketsView bracketsView = new BracketsView();
-        formView.addEventHandlerToStartButton(event -> {
+        playersForm.addEventHandlerToStartButton(event -> {
             try {
                 championship.advanceToNextStage();
-                championship.setSport(Championship.Sports.valueOf(formView.getSport()));
+                championship.setSport(Championship.Sports.valueOf(playersForm.getSport()));
                 bracketsView.showAll(
                         championship.getQuarterFinalists(),
                         championship.getSemiFinalists(),
