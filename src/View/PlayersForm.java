@@ -16,7 +16,6 @@ import java.util.List;
 
 public class PlayersForm extends Form {
     public TextField playerField;
-    private Button submitButton;
     private Button startBtn;
     private RadioButton tennisRB;
     private RadioButton basketBallRB;
