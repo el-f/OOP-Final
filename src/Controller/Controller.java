@@ -23,11 +23,9 @@ import static Model.Championship.Stages.*;
 public class Controller {
     private Championship championship;
     private View view;
-    private AtomicBoolean overtimeNeeded;
     public Controller(Championship _championship, View _view) {
         championship = _championship;
         view = _view;
-        overtimeNeeded = new AtomicBoolean();
         PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
         view.updateBorderPane(playersForm.getBorderPane(), null);
         playersForm.addEventToSubmitButton(event -> {
