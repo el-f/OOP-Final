@@ -66,11 +66,6 @@ public class Controller {
         bracketsView.addEventToBtnFinals(event -> showScoresForm(bracketsView, Finals, 0, false));
     }
 
-    private void showScoresFormTest(BracketsView bracketsView, Championship.Stages gameStage,
-                                    int gamePosition){
-
-    }
-
     private void showScoresForm(BracketsView bracketsView, Championship.Stages gameStage,
                                 int gamePosition, boolean overtime) {
         Stage stage = new Stage();
