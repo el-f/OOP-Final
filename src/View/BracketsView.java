@@ -63,35 +63,35 @@ public class BracketsView {
         return borderPane;
     }
 
-    public void addEventHandlerToPlayBtnQ0(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnQ0(EventHandler<ActionEvent> eventHandler) {
         playQuarter0.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnQ1(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnQ1(EventHandler<ActionEvent> eventHandler) {
         playQuarter1.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnQ2(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnQ2(EventHandler<ActionEvent> eventHandler) {
         playQuarter2.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnQ3(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnQ3(EventHandler<ActionEvent> eventHandler) {
         playQuarter3.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnS0(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnS0(EventHandler<ActionEvent> eventHandler) {
         playSemi0.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnS1(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnS1(EventHandler<ActionEvent> eventHandler) {
         playSemi1.setOnAction(eventHandler);
     }
 
-    public void addEventHandlerToPlayBtnF(EventHandler<ActionEvent> eventHandler) {
+    public void addEventToBtnFinals(EventHandler<ActionEvent> eventHandler) {
         playFinals.setOnAction(eventHandler);
     }
 
-    public void toggleButton(int buttonPosition, boolean disable) {
+    public void toggleButtonDisabled(int buttonPosition, boolean disable) {
         disableProperties[buttonPosition] = disable;
     }
 

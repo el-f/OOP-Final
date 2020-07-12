@@ -37,7 +37,7 @@ public class TennisGame extends Game {
             if (p2Wins > p1Wins)
                 return player2;
         }
-        throw new MyException("Not Margin Of 3 Wins!");
+        throw new MyException("OVERTIME_NEEDED");
     }
 
 }

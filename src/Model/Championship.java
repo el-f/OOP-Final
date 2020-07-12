@@ -13,6 +13,7 @@ public class Championship {
     public enum Stages {Quarters, Semis, Finals}
 
     public enum Sports {Tennis, Football, Basketball}
+
     private Sports sport;
 
     public void setSport(Sports sport) {
@@ -31,39 +32,21 @@ public class Championship {
         quarterFinalists = new String[8];
         semiFinalists = new String[4];
         finalists = new String[2];
-//        currentStage = Stages.Groups;
     }
 
-//    public void advanceToNextStage() throws MyException {
-//        switch (currentStage) {
-//            case Groups:
-//                checkBeforeAdvance(quarterFinalists);
-//                break;
-//            case Quarters:
-//                checkBeforeAdvance(semiFinalists);
-//                break;
-//            case Semis:
-//                checkBeforeAdvance(finalists);
-//                break;
-//            default:
-//                throw new MyException("Can't Advance Anymore");
-//        }
-//    }
+    public void checkQuartersReady() throws MyException {
+        if (getNumOfItems(quarterFinalists)!=8)
+            throw new MyException("Player List Not Ready!");
+    }
 
-//    private void checkBeforeAdvance(String[] arr) throws MyException {
-//        if (getNumOfItems(arr) == arr.length)
-//            currentStage = Stages.values()[currentStage.ordinal() + 1];
-//        else throw new MyException("Not All Spots Are Filled!");
-//    }
-//
-//    public int getNumOfItems(String[] arr) {
-//        int count = 0;
-//        for (String s : arr) {
-//            if (s != null)
-//                count++;
-//        }
-//        return count;
-//    }
+    public int getNumOfItems(String[] arr) {
+        int count = 0;
+        for (String s : arr) {
+            if (s != null)
+                count++;
+        }
+        return count;
+    }
 
     public void addToArray(String item, String[] arr) throws MyException {
         for (int i = 0; i < arr.length; i++) {
@@ -76,11 +59,12 @@ public class Championship {
     }
 
     public void addPlayer(String player) throws MyException {
+        player = player.trim();
         for (String quarterFinalist : quarterFinalists) {
             if (quarterFinalist != null && quarterFinalist.equals(player))
                 throw new MyException("Player Already In List!");
         }
-        if (player.trim().isEmpty())
+        if (player.isEmpty())
             throw new MyException("No Player Name!");
         addToArray(player, quarterFinalists);
     }
@@ -147,10 +131,9 @@ public class Championship {
             default:
                 throw new MyException("Unexpected Game Type!");
         }
-
         String winner = overtime ?
-                game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
-                game.playAndGetWinner(p1Scores, p2Scores);
+                    game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
+                    game.playAndGetWinner(p1Scores, p2Scores);
 
         switch (stage) {
             case Quarters:
@@ -165,14 +148,12 @@ public class Championship {
             default:
                 throw new MyException("Unexpected Stage: " + stage);
         }
-//        try {
-//            advanceToNextStage();
-//        } catch (Exception e){
-//            //not a problem. wait for all games.
-//        }
+
     }
 
-    public static int sumScores(List<Integer> scores) {
+    public static int sumScores(List<Integer> scores) throws MyException {
+        if (scores.isEmpty())
+            throw new MyException("Scores Missing!");
         return scores.stream().mapToInt(Integer::intValue).sum();
     }
 

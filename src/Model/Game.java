@@ -25,7 +25,7 @@ public abstract class Game {
             return player1;
         else if (p2Score > p1Score)
             return player2;
-        else throw new MyException("Draw!");
+        else throw new MyException("OVERTIME_NEEDED");
     }
 
 }
