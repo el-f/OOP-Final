@@ -93,7 +93,7 @@ public class Championship {
         finals: 1 positions.
         this way it's easier to manage what players play from inside this class.
      */
-    public String[] getPlayersFromGamePosition(int gamePosition, Stages stage) throws MyException {
+    public String[] getPlayersFromGamePosition(int gamePosition, Stages stage) {
         int p1Index = gamePosition * 2, p2Index = p1Index + 1;
         String p1, p2;
         switch (stage) {
@@ -110,7 +110,7 @@ public class Championship {
                 p2 = finalists[p2Index];
                 break;
             default:
-                throw new MyException("Unexpected Stage: " + stage);
+                return null;
         }
         return new String[]{p1, p2};
     }
