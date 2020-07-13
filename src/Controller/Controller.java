@@ -8,8 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import View.*;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static Model.Championship.*;
 import static Model.Championship.Stages.*;
 
@@ -23,7 +21,7 @@ public class Controller {
     public Controller(Championship _championship, View _view) {
         championship = _championship;
         view = _view;
-        scoresView = new View(new Stage(), "Game", 500, 500, false);
+        scoresView = new View(new Stage(), "Game", 400, 300, false);
         PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
         view.updateBorderPane(playersForm.getBorderPane(), null);
         playersForm.addEventToSubmitButton(event -> {

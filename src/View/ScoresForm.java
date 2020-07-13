@@ -1,5 +1,6 @@
 package View;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,15 +49,38 @@ public class ScoresForm extends Form {
     }
 
     protected void buildVBoxForScoreFields() {
-        HBox p1Box = new HBox(player1);
-        p1ScoreFields.forEach(sf -> p1Box.getChildren().add(sf));
-        p1Box.setSpacing(15);
-        HBox p2Box = new HBox(player2);
-        p2ScoreFields.forEach(sf -> p2Box.getChildren().add(sf));
-        p2Box.setSpacing(15);
-        VBox all = new VBox(p1Box, p2Box, submitButton);
+        VBox all = new VBox(
+                buildHBoxForScoreField(1),
+                buildHBoxForScoreField(2),
+                submitButton);
         all.setSpacing(25);
+        all.setAlignment(Pos.CENTER);
         borderPane.setCenter(all);
+    }
+
+    private HBox buildHBoxForScoreField(int index) {
+        Text player;
+        List<TextField> scoreFields;
+        switch (index) {
+            case 1:
+                player = player1;
+                scoreFields = p1ScoreFields;
+                break;
+            case 2:
+                player = player2;
+                scoreFields = p2ScoreFields;
+                break;
+            default:
+                return null;
+        }
+        HBox hBox = new HBox(player);
+        scoreFields.forEach(sf -> {
+            sf.setMaxWidth(50);
+            hBox.getChildren().add(sf);
+        });
+        hBox.setSpacing(15);
+        hBox.setAlignment(Pos.CENTER);
+        return hBox;
     }
 
 
