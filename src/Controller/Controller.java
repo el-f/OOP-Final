@@ -2,15 +2,11 @@ package Controller;
 
 import Model.Championship;
 import Model.MyException;
-import View.View;
-import View.PlayersForm;
-import View.BracketsView;
-import View.ScoresForm;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-
+import View.*;
 import static Model.Championship.*;
 import static Model.Championship.Stages.*;
 

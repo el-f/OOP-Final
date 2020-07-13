@@ -74,7 +74,6 @@ public class Championship {
         addToArray(player, quarterFinalists);
     }
 
-
     public List<String> getQuarterFinalists() {
         return Arrays.asList(quarterFinalists);
     }
@@ -96,6 +95,7 @@ public class Championship {
         quarters: 4 games -> Positions: 0-3.
         semis: 2 games -> Positions: 0-1.
         finals: 1 positions.
+        in total: 7 games.
         this way it's easier to manage what players play from inside this class.
      */
     public String[] getPlayersFromGamePosition(int gamePosition, Stages stage) {
