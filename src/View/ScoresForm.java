@@ -9,19 +9,24 @@ import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ScoresForm extends Form {
+public class ScoresForm extends Form {
 
     protected List<TextField> p1ScoreFields;
     protected List<TextField> p2ScoreFields;
     protected Text player1, player2;
 
-    public ScoresForm(String _player1, String _player2) {
+    public ScoresForm(String _player1, String _player2, int rounds) {
         super();
         player1 = new Text(_player1);
         player2 = new Text(_player2);
         submitButton.setText("Done");
         p1ScoreFields = new ArrayList<>();
         p2ScoreFields = new ArrayList<>();
+        for (int i = 0; i < rounds; i++) {
+            p1ScoreFields.add(new TextField());
+            p2ScoreFields.add(new TextField());
+        }
+        buildVBoxForScoreFields();
     }
 
     public List<Integer> getScores(int player) throws UnexpectedException {

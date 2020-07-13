@@ -6,10 +6,6 @@ import View.View;
 import View.PlayersForm;
 import View.BracketsView;
 import View.ScoresForm;
-import View.BasketballScoresForm;
-import View.FootballScoresForm;
-import View.TennisScoresForm;
-import View.OvertimeForm;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -123,16 +119,16 @@ public class Controller {
 
     private ScoresForm getScoresForm(String player1, String player2, boolean overtime) {
         if (overtime)
-            return new OvertimeForm(player1, player2);
+            return new ScoresForm(player1, player2, 1);
         switch (championship.getSport()) {
             case Basketball:
-                return new BasketballScoresForm(player1, player2);
+                return new ScoresForm(player1, player2, 4);
             case Tennis:
-                return new TennisScoresForm(player1, player2);
+                return new ScoresForm(player1, player2, 5);
             case Football:
-                return new FootballScoresForm(player1, player2);
+                return new ScoresForm(player1, player2, 2);
             default:
-                return new OvertimeForm(player1, player2);
+                return new ScoresForm(player1, player2, 0);
         }
     }
 
