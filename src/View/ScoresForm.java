@@ -17,8 +17,8 @@ public class ScoresForm extends Form {
 
     public ScoresForm(String _player1, String _player2, int rounds) {
         super();
-        player1 = new Text(_player1);
-        player2 = new Text(_player2);
+        player1 = new Text(_player1 + ": ");
+        player2 = new Text(_player2 + ": ");
         submitButton.setText("Done");
         p1ScoreFields = new ArrayList<>();
         p2ScoreFields = new ArrayList<>();

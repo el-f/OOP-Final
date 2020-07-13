@@ -33,7 +33,7 @@ public class BracketsView {
         playFinals = new Button("Play Game");
     }
 
-    public void showAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists, String champion) {
+    public void updateAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists, String champion) {
 
         VBox quarterButtons = new VBox(playQuarter0, playQuarter1, playQuarter2, playQuarter3);
         quarterButtons.setAlignment(Pos.CENTER);
