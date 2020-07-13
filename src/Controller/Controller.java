@@ -106,7 +106,7 @@ public class Controller {
     private void enableNextButton(Stages stage, int gamePosition) {
         if (stage == Finals)
             return;
-        int nextPos = (int) Math.floor(gamePosition / 2.0);
+        int nextPos = gamePosition / 2;
         Stages nextStage = Stages.values()[stage.ordinal() + 1];
         if (championship.checkPosReady(nextPos, nextStage))
             togglePlayBtn(nextStage, nextPos, false);
