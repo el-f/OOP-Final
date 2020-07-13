@@ -86,7 +86,6 @@ public class Controller {
                     initScoresView(gameStage, gamePosition, true, false);
                 if (exception.getMessage().equals("TENNIS_OVERTIME_NEEDED"))
                     initScoresView(gameStage, gamePosition, false, true);
-
             }
         };
     }
@@ -103,11 +102,11 @@ public class Controller {
         updateBracketsView(true);
     }
 
-    private void enableNextButton(Stages stage, int gamePosition) {
-        if (stage == Finals)
+    private void enableNextButton(Stages gameStage, int gamePosition) {
+        if (gameStage == Finals)
             return;
         int nextPos = gamePosition / 2;
-        Stages nextStage = Stages.values()[stage.ordinal() + 1];
+        Stages nextStage = Stages.values()[gameStage.ordinal() + 1];
         if (championship.checkPosReady(nextPos, nextStage))
             togglePlayBtn(nextStage, nextPos, false);
     }
