@@ -27,8 +27,7 @@ public class View {
         scene = new Scene(borderPane, width, height);
         primaryStage.setScene(scene);
         primaryStage.setTitle(title);
-        if (show)
-            primaryStage.show();
+        if (show) primaryStage.show();
     }
 
     public void show() {

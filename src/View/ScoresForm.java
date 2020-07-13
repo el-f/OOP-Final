@@ -39,7 +39,6 @@ public abstract class ScoresForm extends Form {
                 integerList.add(score);
             }
         });
-
         return integerList;
     }
 

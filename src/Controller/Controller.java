@@ -10,6 +10,8 @@ import View.BasketballScoresForm;
 import View.FootballScoresForm;
 import View.TennisScoresForm;
 import View.OvertimeForm;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
@@ -68,20 +70,7 @@ public class Controller {
     private void showScoresView(BracketsView bracketsView, Championship.Stages gameStage,
                                 int gamePosition) {
         initScoresView(bracketsView, gameStage, gamePosition, false);
-        scoresForm.addEventToSubmitButton(event ->
-                eventForDoneBtn(bracketsView, gameStage, gamePosition, false));
-    }
-
-    private void eventForDoneBtn(BracketsView bracketsView, Championship.Stages gameStage,
-                                 int gamePosition, boolean overtime) {
-        try {
-            playAndUpdate(bracketsView, gameStage, gamePosition, overtime);
-            scoresView.close();
-        } catch (Exception exception) {
-            alertForException(exception, scoresView);
-            if (exception.getMessage().equals("OVERTIME_NEEDED"))
-                initScoresView(bracketsView, gameStage, gamePosition, true);
-        }
+        scoresForm.addEventToSubmitButton(eventForDoneBtn(bracketsView, gameStage, gamePosition, false));
     }
 
     private void initScoresView(BracketsView bracketsView, Championship.Stages gameStage,
@@ -91,8 +80,21 @@ public class Controller {
         scoresView.updateBorderPane(scoresForm.getBorderPane(), championship.getSportName());
         scoresView.show();
         if (overtime)
-            scoresForm.addEventToSubmitButton(event ->
-                    eventForDoneBtn(bracketsView, gameStage, gamePosition, true));
+            scoresForm.addEventToSubmitButton(eventForDoneBtn(bracketsView, gameStage, gamePosition, true));
+    }
+
+    private EventHandler<ActionEvent> eventForDoneBtn(BracketsView bracketsView, Championship.Stages gameStage,
+                                                      int gamePosition, boolean overtime) {
+        return event -> {
+            try {
+                playAndUpdate(bracketsView, gameStage, gamePosition, overtime);
+                scoresView.close();
+            } catch (Exception exception) {
+                alertForException(exception, scoresView);
+                if (exception.getMessage().equals("OVERTIME_NEEDED"))
+                    initScoresView(bracketsView, gameStage, gamePosition, true);
+            }
+        };
     }
 
     private void playAndUpdate(BracketsView bracketsView, Championship.Stages gameStage,
