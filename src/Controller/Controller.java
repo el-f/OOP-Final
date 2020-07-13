@@ -121,6 +121,8 @@ public class Controller {
             togglePlayBtn(bracketsView, nextStage, nextPos, false);
     }
 
+    //Transforms the gamePositions documented in Championship into a 0-6 index.
+    //Toggles a play button from an array of [0-6] indexes.
     private void togglePlayBtn(BracketsView bracketsView, Stages gameStage, int gamePosition, boolean disable) {
         bracketsView.toggleButtonDisabled(
                 gameStage.equals(Quarters) ? gamePosition :
