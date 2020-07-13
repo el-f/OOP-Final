@@ -16,20 +16,32 @@ public class View {
     private BorderPane borderPane;
     private Alert alert;
     private Scene scene;
+    private String title;
+    private Stage primaryStage;
 
-    public View(Stage primaryStage) {
+    public View(Stage _primaryStage, String _title, int width, int height, boolean show) {
+        primaryStage = _primaryStage;
         alert = new Alert(Alert.AlertType.ERROR);
         borderPane = new BorderPane();
-
-        scene = new Scene(borderPane, 1100, 700);
+        title = _title;
+        scene = new Scene(borderPane, width, height);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Championship");
+        primaryStage.setTitle(title);
+        if (show)
+            primaryStage.show();
+    }
+
+    public void show() {
         primaryStage.show();
+    }
+
+    public void close() {
+        primaryStage.close();
     }
 
     public void updateBorderPane(BorderPane _borderPane, String sport) {
         borderPane = _borderPane;
-        String txt = "Championship";
+        String txt = title;
         txt += sport == null ? "" : " (" + sport + ")";
         HBox title = new HBox(new Text(txt));
         title.setAlignment(Pos.CENTER);

@@ -10,23 +10,22 @@ import View.BasketballScoresForm;
 import View.FootballScoresForm;
 import View.TennisScoresForm;
 import View.OvertimeForm;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static Model.Championship.Stages.*;
 
 public class Controller {
     private Championship championship;
     private View view;
+    private View scoresView;
+    private ScoresForm scoresForm;
 
     public Controller(Championship _championship, View _view) {
         championship = _championship;
         view = _view;
+        scoresView = new View(new Stage(), "Game", 500, 500, false);
         PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
         view.updateBorderPane(playersForm.getBorderPane(), null);
         playersForm.addEventToSubmitButton(event -> {
@@ -35,10 +34,11 @@ public class Controller {
                 playersForm.showPlayers(championship.getQuarterFinalists());
                 view.updateBorderPane(playersForm.getBorderPane(), null);
             } catch (Exception exception) {
-                alertForException(exception);
+                alertForException(exception, view);
             }
         });
         playersForm.showPlayers(championship.getQuarterFinalists());
+
 
         BracketsView bracketsView = new BracketsView();
         bracketsView.showAll(
@@ -52,48 +52,62 @@ public class Controller {
                 championship.setSport(Championship.Sports.valueOf(playersForm.getSport()));
                 updateBracketsView(bracketsView);
             } catch (Exception exception) {
-                alertForException(exception);
+                alertForException(exception, view);
             }
         });
 
-        bracketsView.addEventToBtnQ0(event -> showScoresForm(bracketsView, Quarters, 0, false));
-        bracketsView.addEventToBtnQ1(event -> showScoresForm(bracketsView, Quarters, 1, false));
-        bracketsView.addEventToBtnQ2(event -> showScoresForm(bracketsView, Quarters, 2, false));
-        bracketsView.addEventToBtnQ3(event -> showScoresForm(bracketsView, Quarters, 3, false));
-        bracketsView.addEventToBtnS0(event -> showScoresForm(bracketsView, Semis, 0, false));
-        bracketsView.addEventToBtnS1(event -> showScoresForm(bracketsView, Semis, 1, false));
-        bracketsView.addEventToBtnFinals(event -> showScoresForm(bracketsView, Finals, 0, false));
+        bracketsView.addEventToBtnQ0(event -> showScoresView(bracketsView, Quarters, 0));
+        bracketsView.addEventToBtnQ1(event -> showScoresView(bracketsView, Quarters, 1));
+        bracketsView.addEventToBtnQ2(event -> showScoresView(bracketsView, Quarters, 2));
+        bracketsView.addEventToBtnQ3(event -> showScoresView(bracketsView, Quarters, 3));
+        bracketsView.addEventToBtnS0(event -> showScoresView(bracketsView, Semis, 0));
+        bracketsView.addEventToBtnS1(event -> showScoresView(bracketsView, Semis, 1));
+        bracketsView.addEventToBtnFinals(event -> showScoresView(bracketsView, Finals, 0));
     }
 
-    private void showScoresForm(BracketsView bracketsView, Championship.Stages gameStage,
+    private void showScoresView(BracketsView bracketsView, Championship.Stages gameStage,
+                                int gamePosition) {
+        initScoresView(bracketsView, gameStage, gamePosition, false);
+        scoresForm.addEventToSubmitButton(event ->
+                eventForDoneBtn(bracketsView, gameStage, gamePosition, false));
+    }
+
+    private void eventForDoneBtn(BracketsView bracketsView, Championship.Stages gameStage,
+                                 int gamePosition, boolean overtime) {
+        try {
+            playAndUpdate(bracketsView, gameStage, gamePosition, overtime);
+            scoresView.close();
+        } catch (Exception exception) {
+            alertForException(exception, scoresView);
+            if (exception.getMessage().equals("OVERTIME_NEEDED"))
+                initScoresView(bracketsView, gameStage, gamePosition, true);
+        }
+    }
+
+    private void initScoresView(BracketsView bracketsView, Championship.Stages gameStage,
                                 int gamePosition, boolean overtime) {
-        Stage stage = new Stage();
         String[] players = championship.getPlayersFromGamePosition(gamePosition, gameStage);
-        ScoresForm scoresForm = getScoresForm(players[0], players[1], overtime);
-        Scene scene = new Scene(Objects.requireNonNull(scoresForm).getBorderPane(), 500, 500);
-        stage.setScene(scene);
-        stage.show();
-        scoresForm.addEventToSubmitButton(event -> {
-            try {
-                championship.play(gamePosition,
-                        gameStage,
-                        scoresForm.getScores(1),
-                        scoresForm.getScores(2),
-                        overtime);
-                bracketsView.toggleButtonDisabled(
-                        gameStage.equals(Quarters) ? gamePosition :
-                                gameStage.equals(Semis) ? gamePosition + 4 :
-                                        gameStage.equals(Finals) ? gamePosition + 6 : -1, true);
-                updateBracketsView(bracketsView); //for player list change
-                stage.close();
-            } catch (Exception exception) {
-                if (exception.getMessage().equals("OVERTIME_NEEDED")) {
-                    stage.close();
-                    showScoresForm(bracketsView, gameStage, gamePosition, true);
-                }
-                alertForException(exception);
-            }
-        });
+        scoresForm = getScoresForm(players[0], players[1], overtime);
+        scoresView.updateBorderPane(scoresForm.getBorderPane(), championship.getSportName());
+        scoresView.show();
+        if (overtime)
+            scoresForm.addEventToSubmitButton(event ->
+                    eventForDoneBtn(bracketsView, gameStage, gamePosition, true));
+    }
+
+    private void playAndUpdate(BracketsView bracketsView, Championship.Stages gameStage,
+                               int gamePosition, boolean overtime) throws Exception {
+        championship.play(
+                gamePosition,
+                gameStage,
+                scoresForm.getScores(1),
+                scoresForm.getScores(2),
+                overtime);
+        bracketsView.toggleButtonDisabled(
+                gameStage.equals(Quarters) ? gamePosition :
+                        gameStage.equals(Semis) ? gamePosition + 4 :
+                                gameStage.equals(Finals) ? gamePosition + 6 : -1, true);
+        updateBracketsView(bracketsView); //for player list change
     }
 
     private void updateBracketsView(BracketsView bracketsView) {
@@ -115,11 +129,12 @@ public class Controller {
                 return new TennisScoresForm(player1, player2);
             case Football:
                 return new FootballScoresForm(player1, player2);
+            default:
+                return new OvertimeForm(player1, player2);
         }
-        return null;
     }
 
-    private void alertForException(Exception exception) {
+    private void alertForException(Exception exception, View view) {
         String message;
         if (exception instanceof MyException)
             message = exception.getMessage();
@@ -127,6 +142,6 @@ public class Controller {
             message = "Error! " + exception.getClass().getSimpleName();
         }
         view.showAlert(Alert.AlertType.ERROR, message);
-        exception.printStackTrace(); //TODO: Delete
+//        exception.printStackTrace(); //TODO: Delete
     }
 }
