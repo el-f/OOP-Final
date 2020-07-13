@@ -49,8 +49,9 @@ public class Controller {
             }
         });
 
-        for (AtomicInteger i = new AtomicInteger(0); i.get() < 4; i.getAndIncrement()) {
-            bracketsView.addEventToButton(i.get(), event -> showScoresView(Quarters, i.get()));     //quarters buttons
+        for (int i = 0; i < 4; i++) {
+            int j = i;  //for lambda usage
+            bracketsView.addEventToButton(i, event -> showScoresView(Quarters, j));     //quarters buttons
         }
         bracketsView.addEventToButton(4, event -> showScoresView(Semis, 0));  //semis buttons
         bracketsView.addEventToButton(5, event -> showScoresView(Semis, 1));  //
