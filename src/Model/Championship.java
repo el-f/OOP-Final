@@ -35,8 +35,13 @@ public class Championship {
     }
 
     public void checkQuartersReady() throws MyException {
-        if (getNumOfItems(quarterFinalists)!=8)
+        if (getNumOfItems(quarterFinalists) != 8)
             throw new MyException("Player List Not Ready!");
+    }
+
+    public boolean checkPosReady(int pos, Stages stage) {
+        String[] players = getPlayersFromGamePosition(pos, stage);
+        return players[0] != null && players[1] != null;
     }
 
     public int getNumOfItems(String[] arr) {
@@ -132,8 +137,8 @@ public class Championship {
                 throw new MyException("Unexpected Game Type!");
         }
         String winner = overtime ?
-                    game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
-                    game.playAndGetWinner(p1Scores, p2Scores);
+                game.playOvertimeAndGetWinner(sumScores(p1Scores), sumScores(p2Scores)) :
+                game.playAndGetWinner(p1Scores, p2Scores);
 
         switch (stage) {
             case Quarters:

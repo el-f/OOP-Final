@@ -14,7 +14,7 @@ public abstract class Game {
 
     public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
         if (p1Scores.size() != p2Scores.size())
-            throw new MyException("uneven size of rounds lists");
+            throw new MyException("Invalid Scores Input!");
         if (p1Scores.size() != rounds)
             throw new MyException("Not All Rounds Played!");
         return playOvertimeAndGetWinner(Championship.sumScores(p1Scores), Championship.sumScores(p2Scores));
