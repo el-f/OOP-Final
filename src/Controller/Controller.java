@@ -7,6 +7,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import View.*;
+
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static Model.Championship.*;
 import static Model.Championship.Stages.*;
 
@@ -46,13 +49,12 @@ public class Controller {
             }
         });
 
-        bracketsView.addEventToBtnQ0(event -> showScoresView(Quarters, 0));
-        bracketsView.addEventToBtnQ1(event -> showScoresView(Quarters, 1));
-        bracketsView.addEventToBtnQ2(event -> showScoresView(Quarters, 2));
-        bracketsView.addEventToBtnQ3(event -> showScoresView(Quarters, 3));
-        bracketsView.addEventToBtnS0(event -> showScoresView(Semis, 0));
-        bracketsView.addEventToBtnS1(event -> showScoresView(Semis, 1));
-        bracketsView.addEventToBtnFinals(event -> showScoresView(Finals, 0));
+        for (AtomicInteger i = new AtomicInteger(0); i.get() < 4; i.getAndIncrement()) {
+            bracketsView.addEventToButton(i.get(), event -> showScoresView(Quarters, i.get()));     //quarters buttons
+        }
+        bracketsView.addEventToButton(4, event -> showScoresView(Semis, 0));  //semis buttons
+        bracketsView.addEventToButton(5, event -> showScoresView(Semis, 1));  //
+        bracketsView.addEventToButton(6, event -> showScoresView(Finals, 0)); //finals button
     }
 
     private void showScoresView(Stages gameStage, int gamePosition) {
