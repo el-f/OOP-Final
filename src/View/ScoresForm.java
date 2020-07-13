@@ -50,29 +50,15 @@ public class ScoresForm extends Form {
 
     protected void buildVBoxForScoreFields() {
         VBox all = new VBox(
-                buildHBoxForScoreField(1),
-                buildHBoxForScoreField(2),
+                buildHBoxForScoreField(player1, p1ScoreFields),
+                buildHBoxForScoreField(player2, p2ScoreFields),
                 submitButton);
         all.setSpacing(25);
         all.setAlignment(Pos.CENTER);
         borderPane.setCenter(all);
     }
 
-    private HBox buildHBoxForScoreField(int index) {
-        Text player;
-        List<TextField> scoreFields;
-        switch (index) {
-            case 1:
-                player = player1;
-                scoreFields = p1ScoreFields;
-                break;
-            case 2:
-                player = player2;
-                scoreFields = p2ScoreFields;
-                break;
-            default:
-                return null;
-        }
+    private HBox buildHBoxForScoreField(Text player, List<TextField> scoreFields) {
         HBox hBox = new HBox(player);
         scoreFields.forEach(sf -> {
             sf.setMaxWidth(50);
