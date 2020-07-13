@@ -160,6 +160,5 @@ public class Controller {
             message = "Error! " + exception.getClass().getSimpleName();
         }
         view.showAlert(Alert.AlertType.ERROR, message);
-//        exception.printStackTrace(); //TODO: Delete
     }
 }
