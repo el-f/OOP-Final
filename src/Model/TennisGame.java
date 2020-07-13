@@ -25,19 +25,14 @@ public class TennisGame extends Game {
             else if (p2Scores.get(i) > p1Scores.get(i))
                 p2Wins++;
         }
-        if (p1Scores.size() == alternativeRounds) {
-            if (p1Wins - p2Wins >= 3)
-                return player1;
-            if (p2Wins - p1Wins >= 3)
-                return player2;
-        }
-        if (p1Scores.size() == rounds) {
-            if (p1Wins > p2Wins)
-                return player1;
-            if (p2Wins > p1Wins)
-                return player2;
-        }
-        throw new MyException("OVERTIME_NEEDED");
+
+        if (p1Wins > p2Wins && p1Wins >= 3)
+            return player1;
+        if (p2Wins > p1Wins && p2Wins >= 3)
+            return player2;
+        if (p1Scores.size() == alternativeRounds)
+            throw new MyException("Not a margin of 3 wins! enter scores for the rest of the rounds!");
+        throw new MyException("TENNIS_OVERTIME_NEEDED");
     }
 
 }

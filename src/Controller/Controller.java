@@ -65,18 +65,20 @@ public class Controller {
 
     private void showScoresView(BracketsView bracketsView, Championship.Stages gameStage,
                                 int gamePosition) {
-        initScoresView(bracketsView, gameStage, gamePosition, false);
+        initScoresView(bracketsView, gameStage, gamePosition, false, false);
         scoresForm.addEventToSubmitButton(eventForDoneBtn(bracketsView, gameStage, gamePosition, false));
     }
 
     private void initScoresView(BracketsView bracketsView, Championship.Stages gameStage,
-                                int gamePosition, boolean overtime) {
+                                int gamePosition, boolean overtime, boolean tennisOT) {
         String[] players = championship.getPlayersFromGamePosition(gamePosition, gameStage);
         scoresForm = getScoresForm(players[0], players[1], overtime);
         scoresView.updateBorderPane(scoresForm.getBorderPane(), championship.getSportName());
         scoresView.show();
         if (overtime)
             scoresForm.addEventToSubmitButton(eventForDoneBtn(bracketsView, gameStage, gamePosition, true));
+        if (tennisOT)
+            scoresForm.addEventToSubmitButton(eventForDoneBtn(bracketsView, gameStage, gamePosition, false));
     }
 
     private EventHandler<ActionEvent> eventForDoneBtn(BracketsView bracketsView, Championship.Stages gameStage,
@@ -88,7 +90,10 @@ public class Controller {
             } catch (Exception exception) {
                 alertForException(exception, scoresView);
                 if (exception.getMessage().equals("OVERTIME_NEEDED"))
-                    initScoresView(bracketsView, gameStage, gamePosition, true);
+                    initScoresView(bracketsView, gameStage, gamePosition, true, false);
+                if (exception.getMessage().equals("TENNIS_OVERTIME_NEEDED"))
+                    initScoresView(bracketsView, gameStage, gamePosition, false, true);
+
             }
         };
     }
