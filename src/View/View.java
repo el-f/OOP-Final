@@ -17,25 +17,25 @@ public class View {
     private Alert alert;
     private Scene scene;
     private String title;
-    private Stage primaryStage;
+    private Stage stage;
 
-    public View(Stage _primaryStage, String _title, int width, int height, boolean show) {
-        primaryStage = _primaryStage;
+    public View(Stage _stage, String _title, int width, int height, boolean show) {
+        stage = _stage;
         alert = new Alert(Alert.AlertType.ERROR);
         borderPane = new BorderPane();
         title = _title;
         scene = new Scene(borderPane, width, height);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle(title);
-        if (show) primaryStage.show();
+        stage.setScene(scene);
+        stage.setTitle(title);
+        if (show) stage.show();
     }
 
     public void show() {
-        primaryStage.show();
+        stage.show();
     }
 
     public void close() {
-        primaryStage.close();
+        stage.close();
     }
 
     public void updateBorderPane(BorderPane _borderPane, String sport) {
