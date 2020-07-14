@@ -10,7 +10,6 @@ public abstract class Form {
     protected BorderPane borderPane;
     protected Button submitButton;
 
-
     protected Form() {
         borderPane = new BorderPane();
         submitButton = new Button();
