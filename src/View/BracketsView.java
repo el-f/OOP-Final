@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,13 +48,13 @@ public class BracketsView {
         finalButton.setAlignment(Pos.CENTER);
         updateDisableProperties();
         HBox all = new HBox(
-                View.showPlayersFromList(quarterFinalists, 25),
+                View.showPlayersFromList(quarterFinalists, 25, Color.BLUE),
                 quarterButtons,
-                View.showPlayersFromList(semiFinalists, 75),
+                View.showPlayersFromList(semiFinalists, 75, Color.BLUE),
                 semiButtons,
-                View.showPlayersFromList(finalists, 180),
+                View.showPlayersFromList(finalists, 180, Color.BLUE),
                 finalButton,
-                View.showPlayersFromList(Collections.singletonList(champion), 0));
+                View.showPlayersFromList(Collections.singletonList(champion), 0, Color.RED));
         all.setAlignment(Pos.CENTER);
         all.setSpacing(20);
         borderPane.setCenter(all);

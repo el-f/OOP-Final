@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -58,15 +59,22 @@ public class View {
         scene.setRoot(borderPane);
     }
 
-    public static TextField buildTextFieldFromName(String name) {
+    public static TextField buildTextFieldFromName(String name, Color color) {
         TextField textField = new TextField(name);
+        DropShadow shadow = new DropShadow();
+        shadow.setColor(color);
+        shadow.setWidth(15);
+        shadow.setHeight(15);
+        shadow.setOffsetX(2);
+        shadow.setOffsetY(2);
+        textField.setEffect(shadow);
         textField.editableProperty().set(false);
         return textField;
     }
 
-    public static VBox showPlayersFromList(List<String> players, int spacing) {
+    public static VBox showPlayersFromList(List<String> players, int spacing, Color color) {
         VBox vBox = new VBox();
-        players.forEach(p -> vBox.getChildren().add(buildTextFieldFromName(p)));
+        players.forEach(p -> vBox.getChildren().add(buildTextFieldFromName(p, color)));
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(spacing);
         vBox.setPadding(new Insets(0, 0, 0, 15));

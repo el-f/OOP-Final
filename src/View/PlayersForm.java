@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class PlayersForm extends Form {
 
     public void showPlayers(List<String> players) {
         //left
-        borderPane.setLeft(View.showPlayersFromList(players, 10));
+        borderPane.setLeft(View.showPlayersFromList(players, 10, Color.BLUE));
     }
 
     public String getSport() {
