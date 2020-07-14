@@ -118,11 +118,14 @@ public class Controller {
     }
 
     private void updateBracketsView(boolean show) {
+        String champion = championship.getChampion();
+        if (champion != null)
+            view.showAlert(Alert.AlertType.INFORMATION, "The Champion is: " + champion + "!");
         bracketsView.updateAll(
                 championship.getQuarterFinalists(),
                 championship.getSemiFinalists(),
                 championship.getFinalists(),
-                championship.getChampion());
+                champion);
         if (show)
             view.updateBorderPane(bracketsView.getBorderPane(), championship.getSportName());
     }

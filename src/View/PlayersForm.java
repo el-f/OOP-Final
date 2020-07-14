@@ -53,14 +53,15 @@ public class PlayersForm extends Form {
         tennisRB.setSelected(true);
         VBox type = new VBox(tennisRB, basketBallRB, footballRB);
         type.setAlignment(Pos.CENTER_LEFT);
-        type.setPadding(new Insets(0, 15, 0, 0));
+        type.setPadding(new Insets(0, 25, 0, 0));
         borderPane.setRight(type);
         showPlayers(players);
+        borderPane.setPadding(new Insets(25, 25, 25, 25));
     }
 
     public void showPlayers(List<String> players) {
         //left
-        borderPane.setLeft(View.showPlayersFromList(players, 10, Color.BLUE));
+        borderPane.setLeft(View.showPlayersFromList(players, 15, Color.BLUE));
     }
 
     public String getSport() {
