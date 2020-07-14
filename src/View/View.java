@@ -61,6 +61,7 @@ public class View {
 
     public static TextField buildTextFieldFromName(String name, Color color) {
         TextField textField = new TextField(name);
+        textField.setEditable(false);
         DropShadow shadow = new DropShadow();
         shadow.setColor(color);
         shadow.setWidth(15);
@@ -68,7 +69,6 @@ public class View {
         shadow.setOffsetX(2);
         shadow.setOffsetY(2);
         textField.setEffect(shadow);
-        textField.editableProperty().set(false);
         return textField;
     }
 
