@@ -12,9 +12,9 @@ import java.util.List;
 
 public class ScoresForm extends Form {
 
-    protected List<TextField> p1ScoreFields;
-    protected List<TextField> p2ScoreFields;
-    protected Text player1, player2;
+    private List<TextField> p1ScoreFields;
+    private List<TextField> p2ScoreFields;
+    private Text player1, player2;
 
     public ScoresForm(String _player1, String _player2, int rounds) {
         super();
@@ -48,7 +48,7 @@ public class ScoresForm extends Form {
         return integerList;
     }
 
-    protected void buildVBoxForScoreFields() {
+    private void buildVBoxForScoreFields() {
         VBox all = new VBox(
                 buildHBoxForScoreField(player1, p1ScoreFields),
                 buildHBoxForScoreField(player2, p2ScoreFields),
