@@ -39,8 +39,8 @@ public class Championship {
             throw new MyException("Player List Not Ready!");
     }
 
-    public boolean checkPosReady(int pos, Stages stage) {
-        String[] players = getPlayersFromGamePosition(pos, stage);
+    public boolean checkGameReady(int gamePosition, Stages stage) {
+        String[] players = getPlayersFromGamePosition(gamePosition, stage);
         return players[0] != null && players[1] != null;
     }
 

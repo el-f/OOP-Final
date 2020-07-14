@@ -104,7 +104,7 @@ public class Controller {
             return;
         int nextPos = gamePosition / 2;
         Stages nextStage = Stages.values()[gameStage.ordinal() + 1];
-        if (championship.checkPosReady(nextPos, nextStage))
+        if (championship.checkGameReady(nextPos, nextStage))
             togglePlayBtn(nextStage, nextPos, false);
     }
 
