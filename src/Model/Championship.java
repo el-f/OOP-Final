@@ -53,7 +53,7 @@ public class Championship {
         return count;
     }
 
-    public void addToArray(String item, String[] arr) throws MyException {
+    public void addToArrayByOrder(String item, String[] arr) throws MyException {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
                 arr[i] = item;
@@ -71,7 +71,7 @@ public class Championship {
         }
         if (player.isEmpty())
             throw new MyException("No Player Name!");
-        addToArray(player, quarterFinalists);
+        addToArrayByOrder(player, quarterFinalists);
     }
 
     public List<String> getQuarterFinalists() {
@@ -142,10 +142,10 @@ public class Championship {
 
         switch (stage) {
             case Quarters:
-                addToArray(winner, semiFinalists);
+                semiFinalists[gamePosition] = winner;
                 break;
             case Semis:
-                addToArray(winner, finalists);
+                finalists[gamePosition] = winner;
                 break;
             case Finals:
                 champion = winner;

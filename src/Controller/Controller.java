@@ -21,7 +21,7 @@ public class Controller {
     public Controller(Championship _championship, View _view) {
         championship = _championship;
         view = _view;
-        scoresView = new View(new Stage(), "Game", 400, 300, false);
+        scoresView = new View(new Stage(), "Game", 500, 300, false);
         PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
         view.updateBorderPane(playersForm.getBorderPane(), null);
         playersForm.addEventToSubmitButton(event -> {

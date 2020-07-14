@@ -13,8 +13,7 @@ public class TennisGame extends Game {
 
     @Override
     public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
-        if (p1Scores.size() != p2Scores.size())
-            throw new MyException("Invalid Scores Input!");
+        checkSizeEqual(p1Scores, p2Scores);
         if (p1Scores.size() != rounds && p1Scores.size() != alternativeRounds)
             throw new MyException("Not All Rounds Played!");
         int p1Wins = 0, p2Wins = 0, draws = 0;

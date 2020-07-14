@@ -13,11 +13,15 @@ public abstract class Game {
     }
 
     public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
-        if (p1Scores.size() != p2Scores.size())
-            throw new MyException("Invalid Scores Input!");
+        checkSizeEqual(p1Scores, p2Scores);
         if (p1Scores.size() != rounds)
             throw new MyException("Not All Rounds Played!");
         return playOvertimeAndGetWinner(Championship.sumScores(p1Scores), Championship.sumScores(p2Scores));
+    }
+
+    protected void checkSizeEqual(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
+        if (p1Scores.size() != p2Scores.size())
+            throw new MyException("Invalid Scores Input!");
     }
 
     protected String playOvertimeAndGetWinner(int p1Score, int p2Score) throws MyException {
