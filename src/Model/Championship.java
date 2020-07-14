@@ -66,7 +66,7 @@ public class Championship {
     public void addPlayer(String player) throws MyException {
         player = player.trim();
         for (String quarterFinalist : quarterFinalists) {
-            if (quarterFinalist != null && quarterFinalist.equals(player))
+            if (quarterFinalist != null && quarterFinalist.equalsIgnoreCase(player))
                 throw new MyException("Player Already In List!");
         }
         if (player.isEmpty())

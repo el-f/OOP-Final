@@ -7,6 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,9 +44,15 @@ public class View {
 
     public void updateBorderPane(BorderPane _borderPane, String sport) {
         borderPane = _borderPane;
-        String txt = title;
-        txt += sport == null ? "" : " (" + sport + ")";
-        HBox title = new HBox(new Text(txt));
+        String txt = sport == null ? "" : sport + " ";
+        txt += title;
+        Text text = new Text(txt);
+        text.setFont(Font.font("Tahoma Bold", FontWeight.BOLD, 25));
+        text.setFill(Color.GOLDENROD);
+        text.setStroke(Color.BLACK);
+        text.setFontSmoothingType(FontSmoothingType.LCD);
+        HBox title = new HBox(text);
+        title.setPadding(new Insets(40,0,0,0));
         title.setAlignment(Pos.CENTER);
         borderPane.setTop(title);
         scene.setRoot(borderPane);

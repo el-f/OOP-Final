@@ -10,7 +10,7 @@ public class Program extends Application {
     @Override
     public void start(Stage primaryStage) {
         Championship championship = new Championship();
-        View view = new View(primaryStage, "Championship", 1100, 700, true);
+        View view = new View(primaryStage, "Championship", 1100, 650, true);
         Controller controller = new Controller(championship, view);
     }
 
