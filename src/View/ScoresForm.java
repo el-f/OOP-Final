@@ -37,15 +37,15 @@ public class ScoresForm extends Form {
         else if (player == 2)
             textFieldList = p2ScoreFields;
         else throw new UnexpectedException("unexpected value: " + player);
-        List<Integer> integerList = new ArrayList<>();
+        List<Integer> scores = new ArrayList<>();
         textFieldList.forEach(textField -> {
             int score;
             if (!textField.getText().trim().isEmpty()) {
                 score = Integer.parseInt(textField.getText());
-                integerList.add(score);
+                scores.add(score);
             }
         });
-        return integerList;
+        return scores;
     }
 
     private void buildVBoxForScoreFields() {
