@@ -49,27 +49,19 @@ public class Controller {
 
         for (int i = 0; i < 4; i++) {
             int j = i;  //for lambda usage
-            bracketsView.addEventToButton(i, event -> showScoresView(Quarters, j));     //quarters buttons
+            bracketsView.addEventToButton(i, event -> initScoresView(Quarters, j, false));     //quarters buttons
         }
-        bracketsView.addEventToButton(4, event -> showScoresView(Semis, 0));  //semis buttons
-        bracketsView.addEventToButton(5, event -> showScoresView(Semis, 1));  //
-        bracketsView.addEventToButton(6, event -> showScoresView(Finals, 0)); //finals button
+        bracketsView.addEventToButton(4, event -> initScoresView(Semis, 0, false));  //semis buttons
+        bracketsView.addEventToButton(5, event -> initScoresView(Semis, 1, false));  //
+        bracketsView.addEventToButton(6, event -> initScoresView(Finals, 0, false)); //finals button
     }
 
-    private void showScoresView(Stages gameStage, int gamePosition) {
-        initScoresView(gameStage, gamePosition, false, false);
-        scoresForm.addEventToSubmitButton(eventForDoneBtn(gameStage, gamePosition, false));
-    }
-
-    private void initScoresView(Stages gameStage, int gamePosition, boolean overtime, boolean tennisOT) {
+    private void initScoresView(Stages gameStage, int gamePosition, boolean overtime) {
         String[] players = championship.getPlayersFromGamePosition(gamePosition, gameStage);
         scoresForm = getScoresForm(players[0], players[1], overtime);
         scoresView.updateBorderPane(scoresForm.getBorderPane(), championship.getSportName());
+        scoresForm.addEventToSubmitButton(eventForDoneBtn(gameStage, gamePosition, overtime));
         scoresView.show();
-        if (overtime)
-            scoresForm.addEventToSubmitButton(eventForDoneBtn(gameStage, gamePosition, true));
-        if (tennisOT)
-            scoresForm.addEventToSubmitButton(eventForDoneBtn(gameStage, gamePosition, false));
     }
 
     private EventHandler<ActionEvent> eventForDoneBtn(Stages gameStage, int gamePosition, boolean overtime) {
@@ -80,9 +72,9 @@ public class Controller {
             } catch (Exception exception) {
                 alertForException(exception, scoresView);
                 if (exception.getMessage().equals("Draw! Playing Overtime..."))
-                    initScoresView(gameStage, gamePosition, true, false);
+                    initScoresView(gameStage, gamePosition, true);
                 else if (exception.getMessage().equals("Draw! Playing Tennis Overtime..."))
-                    initScoresView(gameStage, gamePosition, false, true);
+                    initScoresView(gameStage, gamePosition, false);
             }
         };
     }
