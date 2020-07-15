@@ -2,14 +2,15 @@ package Model;
 
 import java.util.List;
 
-public abstract class Game {
+public class Game {
 
     protected String player1, player2;
     protected int rounds;
 
-    public Game(String _player1, String _player2) {
+    public Game(String _player1, String _player2, int _rounds) {
         player1 = _player1;
         player2 = _player2;
+        rounds = _rounds;
     }
 
     public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
@@ -29,7 +30,7 @@ public abstract class Game {
             return player1;
         else if (p2Score > p1Score)
             return player2;
-        else throw new MyException("OVERTIME_NEEDED");
+        else throw new MyException("Draw! Playing Overtime...");
     }
 
 }

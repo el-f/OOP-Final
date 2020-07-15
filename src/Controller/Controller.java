@@ -79,9 +79,9 @@ public class Controller {
                 scoresView.close();
             } catch (Exception exception) {
                 alertForException(exception, scoresView);
-                if (exception.getMessage().equals("OVERTIME_NEEDED"))
+                if (exception.getMessage().equals("Draw! Playing Overtime..."))
                     initScoresView(gameStage, gamePosition, true, false);
-                if (exception.getMessage().equals("TENNIS_OVERTIME_NEEDED"))
+                else if (exception.getMessage().equals("Draw! Playing Tennis Overtime..."))
                     initScoresView(gameStage, gamePosition, false, true);
             }
         };

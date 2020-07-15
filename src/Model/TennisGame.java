@@ -6,8 +6,7 @@ public class TennisGame extends Game {
     private final int alternativeRounds;
 
     public TennisGame(String _player1, String _player2) {
-        super(_player1, _player2);
-        rounds = 5;
+        super(_player1, _player2, 5);
         alternativeRounds = 3;
     }
 
@@ -30,9 +29,9 @@ public class TennisGame extends Game {
             if (p2Wins > p1Wins && p2Wins >= 3)
                 return player2;
             if (p1Scores.size() == alternativeRounds)
-                throw new MyException("Not a margin of 3 wins! enter scores for the rest of the rounds!");
+                throw new MyException("Not a Margin of 3 Wins! Enter Scores For The Rest of The Rounds!");
         }
-        throw new MyException("TENNIS_OVERTIME_NEEDED");
+        throw new MyException("Draw! Playing Tennis Overtime...");
     }
 
 }

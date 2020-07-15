@@ -128,10 +128,10 @@ public class Championship {
                 game = new TennisGame(players[0], players[1]);
                 break;
             case Football:
-                game = new FootballGame(players[0], players[1]);
+                game = new Game(players[0], players[1], 2);
                 break;
             case Basketball:
-                game = new BasketballGame(players[0], players[1]);
+                game = new Game(players[0], players[1], 4);
                 break;
             default:
                 throw new MyException("Unexpected Game Type!");
