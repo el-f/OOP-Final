@@ -149,9 +149,8 @@ public class Controller {
         String message;
         if (exception instanceof MyException)
             message = exception.getMessage();
-        else {
+        else
             message = "Error! " + exception.getClass().getSimpleName();
-        }
         view.showAlert(Alert.AlertType.ERROR, message);
     }
 }
