@@ -85,7 +85,8 @@ public class Controller {
                 gameStage,
                 scoresForm.getScores(1), //scores for player 1
                 scoresForm.getScores(2), //scores for player 2
-                overtime);
+                overtime
+        );
         togglePlayBtn(gameStage, gamePosition, true);
         enableNextButton(gameStage, gamePosition);
         updateBracketsView(true);
@@ -106,7 +107,8 @@ public class Controller {
         bracketsView.toggleButtonDisabled(
                 gameStage.equals(Quarters) ? gamePosition :
                         gameStage.equals(Semis) ? gamePosition + 4 :
-                                gameStage.equals(Finals) ? gamePosition + 6 : -1, disable);
+                                gameStage.equals(Finals) ? gamePosition + 6 : -1, disable
+        );
     }
 
     private void updateBracketsView(boolean show) {
@@ -117,7 +119,8 @@ public class Controller {
                 championship.getQuarterFinalists(),
                 championship.getSemiFinalists(),
                 championship.getFinalists(),
-                champion);
+                champion
+        );
         if (show)
             view.updateBorderPane(bracketsView.getBorderPane(), championship.getSportName());
     }
