@@ -55,7 +55,8 @@ public class BracketsView {
                 semiButtons,
                 View.showPlayersFromList(finalists, 180, Color.BLUE),
                 finalButton,
-                View.showPlayersFromList(Collections.singletonList(champion), 0, Color.RED));
+                View.showPlayersFromList(Collections.singletonList(champion), 0, Color.RED)
+        );
         all.setAlignment(Pos.CENTER);
         all.setSpacing(20);
         borderPane.setCenter(all);
