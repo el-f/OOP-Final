@@ -1,7 +1,9 @@
 package Controller;
 
 import Model.Championship;
+import Model.Game;
 import Model.MyException;
+import Model.TennisGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -71,9 +73,9 @@ public class Controller {
                 scoresView.close();
             } catch (Exception exception) {
                 alertForException(exception, scoresView);
-                if (exception.getMessage().equals("Draw! Playing Overtime..."))
+                if (exception.getMessage().equals(Game.drawMsg))
                     initScoresView(gameStage, gamePosition, true);
-                else if (exception.getMessage().equals("Draw! Playing Tennis Overtime..."))
+                else if (exception.getMessage().equals(TennisGame.drawMsg))
                     initScoresView(gameStage, gamePosition, false);
             }
         };
@@ -126,18 +128,24 @@ public class Controller {
     }
 
     private ScoresForm getScoresForm(String player1, String player2, boolean overtime) {
+        int numOfRounds;
         if (overtime)
-            return new ScoresForm(player1, player2, 1);
-        switch (championship.getSport()) {
+            numOfRounds = 1;
+        else switch (championship.getSport()) {
             case Basketball:
-                return new ScoresForm(player1, player2, 4);
+                numOfRounds = 4;
+                break;
             case Tennis:
-                return new ScoresForm(player1, player2, 5);
+                numOfRounds = 5;
+                break;
             case Football:
-                return new ScoresForm(player1, player2, 2);
-            default:    //Technically unreachable. In place of throwing UnexpectedException
-                return new ScoresForm(null, null, -1);
+                numOfRounds = 2;
+                break;
+            default:
+                numOfRounds = -1;
+                break;
         }
+        return new ScoresForm(player1, player2, numOfRounds);
     }
 
     private void alertForException(Exception exception, View view) {

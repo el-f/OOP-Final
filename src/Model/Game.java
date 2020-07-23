@@ -6,6 +6,7 @@ public class Game {
 
     protected String player1, player2;
     protected int rounds;
+    public static final String drawMsg = "Draw! Playing Overtime...";
 
     public Game(String _player1, String _player2, int _rounds) {
         player1 = _player1;
@@ -30,7 +31,7 @@ public class Game {
             return player1;
         else if (p2Score > p1Score)
             return player2;
-        else throw new MyException("Draw! Playing Overtime...");
+        else throw new MyException(drawMsg);
     }
 
 }

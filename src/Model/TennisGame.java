@@ -4,6 +4,7 @@ import java.util.List;
 
 public class TennisGame extends Game {
     private final int alternativeRounds;
+    public static final String drawMsg = "Draw! Playing Tennis Overtime...";
 
     public TennisGame(String _player1, String _player2) {
         super(_player1, _player2, 5);
@@ -31,7 +32,7 @@ public class TennisGame extends Game {
             if (p1Scores.size() == alternativeRounds)
                 throw new MyException("Not a Margin of 3 Wins! Enter Scores For The Rest of The Rounds!");
         }
-        throw new MyException("Draw! Playing Tennis Overtime...");
+        throw new MyException(drawMsg);
     }
 
 }
