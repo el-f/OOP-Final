@@ -49,13 +49,16 @@ public class Controller {
             }
         });
 
-        for (int i = 0; i < 4; i++) {
-            int j = i;  //for lambda usage
-            bracketsView.addEventToButton(i, event -> initScoresView(Quarters, j, false));     //quarters buttons
-        }
-        bracketsView.addEventToButton(4, event -> initScoresView(Semis, 0, false));  //semis buttons
-        bracketsView.addEventToButton(5, event -> initScoresView(Semis, 1, false));  //
-        bracketsView.addEventToButton(6, event -> initScoresView(Finals, 0, false)); //finals button
+        //quarters buttons
+        bracketsView.addEventToButton(0, event -> initScoresView(Quarters, 0, false));
+        bracketsView.addEventToButton(1, event -> initScoresView(Quarters, 1, false));
+        bracketsView.addEventToButton(2, event -> initScoresView(Quarters, 2, false));
+        bracketsView.addEventToButton(3, event -> initScoresView(Quarters, 3, false));
+        //semis buttons
+        bracketsView.addEventToButton(4, event -> initScoresView(Semis, 0, false));
+        bracketsView.addEventToButton(5, event -> initScoresView(Semis, 1, false));
+        //finals button
+        bracketsView.addEventToButton(6, event -> initScoresView(Finals, 0, false));
     }
 
     private void initScoresView(Stages gameStage, int gamePosition, boolean overtime) {
@@ -128,24 +131,18 @@ public class Controller {
     }
 
     private ScoresForm getScoresForm(String player1, String player2, boolean overtime) {
-        int numOfRounds;
         if (overtime)
-            numOfRounds = 1;
-        else switch (championship.getSport()) {
+            return new ScoresForm(player1, player2, 1);
+        switch (championship.getSport()) {
             case Basketball:
-                numOfRounds = 4;
-                break;
+                return new ScoresForm(player1, player2, 4);
             case Tennis:
-                numOfRounds = 5;
-                break;
+                return new ScoresForm(player1, player2, 5);
             case Football:
-                numOfRounds = 2;
-                break;
-            default:
-                numOfRounds = -1;
-                break;
+                return new ScoresForm(player1, player2, 2);
+            default:    //Technically unreachable. In place of throwing UnexpectedException
+                return new ScoresForm(null, null, -1);
         }
-        return new ScoresForm(player1, player2, numOfRounds);
     }
 
     private void alertForException(Exception exception, View view) {
