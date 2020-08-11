@@ -31,6 +31,7 @@ public class Controller {
                 championship.addPlayer(playersForm.playerField.getText());
                 playersForm.showPlayers(championship.getQuarterFinalists());
                 view.updateBorderPane(playersForm.getBorderPane(), null);
+                playersForm.playerField.setText("");
             } catch (Exception exception) {
                 alertForException(exception, view);
             }
