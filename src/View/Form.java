@@ -15,7 +15,7 @@ public abstract class Form {
         submitButton = new Button();
     }
 
-    public void addEventToSubmitButton(EventHandler<ActionEvent> eventHandler) {
+    public void addEventHandlerToSubmitButton(EventHandler<ActionEvent> eventHandler) {
         submitButton.setOnAction(eventHandler);
         borderPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {

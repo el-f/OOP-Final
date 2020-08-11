@@ -66,7 +66,7 @@ public class BracketsView {
         return borderPane;
     }
 
-    public void addEventToButton(int buttonIndex, EventHandler<ActionEvent> eventHandler) {
+    public void addEventHandlerToButton(int buttonIndex, EventHandler<ActionEvent> eventHandler) {
         getButtons().get(buttonIndex).setOnAction(eventHandler);
     }
 

@@ -26,7 +26,7 @@ public class Controller {
         scoresView = new View(new Stage(), "Game", 500, 300, false);
         PlayersForm playersForm = new PlayersForm(championship.getQuarterFinalists());
         view.updateBorderPane(playersForm.getBorderPane(), null);
-        playersForm.addEventToSubmitButton(event -> {
+        playersForm.addEventHandlerToSubmitButton(event -> {
             try {
                 championship.addPlayer(playersForm.playerField.getText());
                 playersForm.showPlayers(championship.getQuarterFinalists());
@@ -51,22 +51,22 @@ public class Controller {
         });
 
         //quarters buttons
-        bracketsView.addEventToButton(0, event -> initScoresView(Quarters, 0, false));
-        bracketsView.addEventToButton(1, event -> initScoresView(Quarters, 1, false));
-        bracketsView.addEventToButton(2, event -> initScoresView(Quarters, 2, false));
-        bracketsView.addEventToButton(3, event -> initScoresView(Quarters, 3, false));
+        bracketsView.addEventHandlerToButton(0, event -> initScoresView(Quarters, 0, false));
+        bracketsView.addEventHandlerToButton(1, event -> initScoresView(Quarters, 1, false));
+        bracketsView.addEventHandlerToButton(2, event -> initScoresView(Quarters, 2, false));
+        bracketsView.addEventHandlerToButton(3, event -> initScoresView(Quarters, 3, false));
         //semis buttons
-        bracketsView.addEventToButton(4, event -> initScoresView(Semis, 0, false));
-        bracketsView.addEventToButton(5, event -> initScoresView(Semis, 1, false));
+        bracketsView.addEventHandlerToButton(4, event -> initScoresView(Semis, 0, false));
+        bracketsView.addEventHandlerToButton(5, event -> initScoresView(Semis, 1, false));
         //finals button
-        bracketsView.addEventToButton(6, event -> initScoresView(Finals, 0, false));
+        bracketsView.addEventHandlerToButton(6, event -> initScoresView(Finals, 0, false));
     }
 
     private void initScoresView(Stages gameStage, int gamePosition, boolean overtime) {
         String[] players = championship.getPlayersFromGamePosition(gamePosition, gameStage);
         scoresForm = getScoresForm(players[0], players[1], overtime);
         scoresView.updateBorderPane(scoresForm.getBorderPane(), championship.getSportName());
-        scoresForm.addEventToSubmitButton(eventForDoneBtn(gameStage, gamePosition, overtime));
+        scoresForm.addEventHandlerToSubmitButton(eventForDoneBtn(gameStage, gamePosition, overtime));
         scoresView.show();
     }
 
