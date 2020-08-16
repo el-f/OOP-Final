@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ScoresForm extends Form {
 
@@ -37,12 +38,12 @@ public class ScoresForm extends Form {
         else if (player == 2)
             textFieldList = p2ScoreFields;
         else throw new UnexpectedException("unexpected value: " + player);
-        List<Integer> scores = new ArrayList<>();
-        textFieldList.forEach(textField -> {
-            if (!textField.getText().trim().isEmpty())
-                scores.add(Integer.parseInt(textField.getText()));
-        });
-        return scores;
+
+        return textFieldList
+                .stream()
+                .filter(textField -> !textField.getText().trim().isEmpty())
+                .map(textField -> Integer.parseInt(textField.getText()))
+                .collect(Collectors.toList());
     }
 
     private void buildVBoxForScoreFields() {
