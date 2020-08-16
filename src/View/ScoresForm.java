@@ -39,11 +39,8 @@ public class ScoresForm extends Form {
         else throw new UnexpectedException("unexpected value: " + player);
         List<Integer> scores = new ArrayList<>();
         textFieldList.forEach(textField -> {
-            int score;
-            if (!textField.getText().trim().isEmpty()) {
-                score = Integer.parseInt(textField.getText());
-                scores.add(score);
-            }
+            if (!textField.getText().trim().isEmpty())
+                scores.add(Integer.parseInt(textField.getText()));
         });
         return scores;
     }
