@@ -55,7 +55,8 @@ public class ScoresForm extends Form {
         VBox all = new VBox(
                 buildHBoxForScoreField(player1, p1ScoreFields),
                 buildHBoxForScoreField(player2, p2ScoreFields),
-                submitButton);
+                submitButton
+        );
         all.setSpacing(25);
         all.setAlignment(Pos.CENTER);
         borderPane.setCenter(all);
