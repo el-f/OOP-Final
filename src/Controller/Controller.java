@@ -80,7 +80,7 @@ public class Controller {
                 if (exception.getMessage().equals(Game.drawMsg))
                     initScoresView(gameStage, gamePosition, true);
                 else if (exception.getMessage().equals(TennisGame.drawMsg))
-                    initScoresView(gameStage, gamePosition, false);
+                    scoresForm.clearTextFields();
             }
         };
     }

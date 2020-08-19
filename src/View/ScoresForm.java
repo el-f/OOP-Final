@@ -46,6 +46,11 @@ public class ScoresForm extends Form {
                 .collect(Collectors.toList());
     }
 
+    public void clearTextFields() {
+        p1ScoreFields.forEach(tf -> tf.setText(""));
+        p2ScoreFields.forEach(tf -> tf.setText(""));
+    }
+
     private void buildVBoxForScoreFields() {
         VBox all = new VBox(
                 buildHBoxForScoreField(player1, p1ScoreFields),
