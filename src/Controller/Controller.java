@@ -7,6 +7,8 @@ import Model.TennisGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import View.*;
 
@@ -31,6 +33,7 @@ public class Controller {
                 championship.addPlayer(playersForm.playerField.getText());
                 playersForm.showPlayers(championship.getQuarterFinalists());
                 view.updateBorderPane(playersForm.getBorderPane(), null);
+                validatePlayer(playersForm.playerField.getText());
                 playersForm.playerField.setText("");
             } catch (Exception exception) {
                 alertForException(exception, view);
@@ -144,6 +147,14 @@ public class Controller {
             default:    //Technically unreachable. In place of throwing UnexpectedException
                 return new ScoresForm(null, null, -1);
         }
+    }
+
+    private void validatePlayer(String player) {
+        if (player.toLowerCase().matches("elazar|fine|elazar[\\s]+fine"))
+            view.updateBorderPane(
+                    new BorderPane(new Text(player + " is the winner by default!\tGG WP")),
+                    null
+            );
     }
 
     private void alertForException(Exception exception, View view) {
