@@ -30,10 +30,11 @@ public class Controller {
         view.updateBorderPane(playersForm.getBorderPane(), null);
         playersForm.addEventHandlerToSubmitButton(event -> {
             try {
-                championship.addPlayer(playersForm.playerField.getText());
+                String player = playersForm.playerField.getText().trim();
+                championship.addPlayer(player);
                 playersForm.showPlayers(championship.getQuarterFinalists());
                 view.updateBorderPane(playersForm.getBorderPane(), null);
-                validatePlayer(playersForm.playerField.getText());
+                validatePlayer(player);
                 playersForm.playerField.setText("");
             } catch (Exception exception) {
                 alertForException(exception, view);
