@@ -61,7 +61,7 @@ public class PlayersForm extends Form {
 
     public void showPlayers(List<String> players) {
         //left
-        borderPane.setLeft(View.showPlayersFromList(players, 15, Color.BLUE));
+        borderPane.setLeft(View.buildPlayersVBoxFromList(players, 15, Color.BLUE));
     }
 
     public String getSport() {

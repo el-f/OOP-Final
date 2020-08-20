@@ -72,7 +72,7 @@ public class View {
         return textField;
     }
 
-    public static VBox showPlayersFromList(List<String> players, int spacing, Color color) {
+    public static VBox buildPlayersVBoxFromList(List<String> players, int spacing, Color color) {
         VBox vBox = new VBox();
         players.forEach(p -> vBox.getChildren().add(buildTextFieldFromName(p, color)));
         vBox.setAlignment(Pos.CENTER);

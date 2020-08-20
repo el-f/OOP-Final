@@ -49,13 +49,13 @@ public class BracketsView {
         finalButton.setAlignment(Pos.CENTER);
         updateDisableProperties();
         HBox all = new HBox(
-                View.showPlayersFromList(quarterFinalists, 25, Color.BLUE),
+                View.buildPlayersVBoxFromList(quarterFinalists, 25, Color.BLUE),
                 quarterButtons,
-                View.showPlayersFromList(semiFinalists, 75, Color.BLUE),
+                View.buildPlayersVBoxFromList(semiFinalists, 75, Color.BLUE),
                 semiButtons,
-                View.showPlayersFromList(finalists, 180, Color.BLUE),
+                View.buildPlayersVBoxFromList(finalists, 180, Color.BLUE),
                 finalButton,
-                View.showPlayersFromList(Collections.singletonList(champion), 0, Color.RED)
+                View.buildPlayersVBoxFromList(Collections.singletonList(champion), 0, Color.RED)
         );
         all.setAlignment(Pos.CENTER);
         all.setSpacing(20);
