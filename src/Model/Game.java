@@ -14,7 +14,7 @@ public class Game {
         rounds = _rounds;
     }
 
-    public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
+    String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
         checkSizeEqual(p1Scores, p2Scores);
         if (p1Scores.size() != rounds)
             throw new MyException("Not All Rounds Played!");

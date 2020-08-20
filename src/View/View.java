@@ -59,7 +59,7 @@ public class View {
         scene.setRoot(borderPane);
     }
 
-    public static TextField buildTextFieldFromName(String name, Color color) {
+    private static TextField buildTextFieldFromName(String name, Color color) {
         TextField textField = new TextField(name);
         textField.setEditable(false);
         DropShadow shadow = new DropShadow();
@@ -72,7 +72,7 @@ public class View {
         return textField;
     }
 
-    public static VBox buildPlayersVBoxFromList(List<String> players, int spacing, Color color) {
+    static VBox buildPlayersVBoxFromList(List<String> players, int spacing, Color color) {
         VBox vBox = new VBox();
         players.forEach(p -> vBox.getChildren().add(buildTextFieldFromName(p, color)));
         vBox.setAlignment(Pos.CENTER);

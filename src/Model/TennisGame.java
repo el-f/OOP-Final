@@ -12,7 +12,7 @@ public class TennisGame extends Game {
     }
 
     @Override
-    public String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
+    String playAndGetWinner(List<Integer> p1Scores, List<Integer> p2Scores) throws MyException {
         checkSizeEqual(p1Scores, p2Scores);
         if (p1Scores.size() != rounds && p1Scores.size() != alternativeRounds)
             throw new MyException("Not All Rounds Played!");

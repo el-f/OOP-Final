@@ -35,7 +35,11 @@ public class Championship {
     }
 
     public void checkQuartersReady() throws MyException {
-        if (getNumOfItems(quarterFinalists) != 8)
+        int count = 0;
+        for (String str : quarterFinalists) {
+            if (str != null) count++;
+        }
+        if (count != 8)
             throw new MyException("Player List Not Ready!");
     }
 
@@ -44,16 +48,7 @@ public class Championship {
         return players[0] != null && players[1] != null;
     }
 
-    public int getNumOfItems(String[] arr) {
-        int count = 0;
-        for (String s : arr) {
-            if (s != null)
-                count++;
-        }
-        return count;
-    }
-
-    public void addToArrayByOrder(String item, String[] arr) throws MyException {
+    private void addToArrayByOrder(String item, String[] arr) throws MyException {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null) {
                 arr[i] = item;
@@ -156,7 +151,7 @@ public class Championship {
 
     }
 
-    public static int sumScores(List<Integer> scores) throws MyException {
+    static int sumScores(List<Integer> scores) throws MyException {
         if (scores.isEmpty())
             throw new MyException("Scores Missing!");
         return scores.stream().mapToInt(Integer::intValue).sum();
