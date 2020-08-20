@@ -110,8 +110,9 @@ public class Controller {
             togglePlayBtn(nextStage, nextPos, false);
     }
 
-    //Transforms the gamePositions documented in Championship into a 0-6 index.
+    //Transforms the gamePositions as they're documented in Championship into a 0-6 index.
     //Toggles a play button from an array of [0-6] indexes.
+    //if disable is TRUE then the disable that button.
     private void togglePlayBtn(Stages gameStage, int gamePosition, boolean disable) {
         bracketsView.toggleButtonDisabled(
                 gameStage.equals(Quarters) ? gamePosition :
