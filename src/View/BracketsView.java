@@ -14,11 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class BracketsView {
-    private BorderPane borderPane;
-    private Button playQuarter0, playQuarter1, playQuarter2, playQuarter3;
-    private Button playSemi0, playSemi1;
-    private Button playFinals;
-    private boolean[] disableProperties;
+    private final BorderPane borderPane;
+    private final Button playQuarter0, playQuarter1, playQuarter2, playQuarter3;
+    private final Button playSemi0, playSemi1;
+    private final Button playFinals;
+    private final boolean[] disableProperties;
 
     public BracketsView() {
         borderPane = new BorderPane();

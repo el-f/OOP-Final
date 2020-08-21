@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Game {
 
-    protected String player1, player2;
-    protected int rounds;
+    protected final String player1, player2;
+    protected final int rounds;
     public static final String drawMsg = "Draw! Playing Overtime...";
 
     public Game(String _player1, String _player2, int _rounds) {

@@ -8,9 +8,10 @@ public class Program extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Championship championship = new Championship();
-        View view = new View(primaryStage, "Championship", 1100, 650, true);
-        new Controller(championship, view);
+        new Controller(
+                new Championship(),
+                new View(primaryStage, "Championship", 1100, 650, true)
+        );
     }
 
     public static void main(String[] args) {

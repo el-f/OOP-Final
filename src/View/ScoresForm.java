@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 
 public class ScoresForm extends Form {
 
-    private List<TextField> p1ScoreFields;
-    private List<TextField> p2ScoreFields;
-    private Text player1, player2;
+    private final List<TextField> p1ScoreFields;
+    private final List<TextField> p2ScoreFields;
+    private final Text player1, player2;
 
     public ScoresForm(String _player1, String _player2, int rounds) {
         super();

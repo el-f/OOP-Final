@@ -16,11 +16,11 @@ import javafx.scene.text.Text;
 import java.util.List;
 
 public class PlayersForm extends Form {
-    public TextField playerField;
-    private Button startBtn;
-    private RadioButton tennisRB;
-    private RadioButton basketBallRB;
-    private RadioButton footballRB;
+    public final TextField playerField;
+    private final Button startBtn;
+    private final RadioButton tennisRB;
+    private final RadioButton basketBallRB;
+    private final RadioButton footballRB;
 
     public PlayersForm(List<String> players) {
         super();

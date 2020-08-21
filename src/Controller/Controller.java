@@ -16,11 +16,11 @@ import static Model.Championship.*;
 import static Model.Championship.Stages.*;
 
 public class Controller {
-    private Championship championship;
-    private View view;
-    private View scoresView;
+    private final Championship championship;
+    private final View view;
+    private final View scoresView;
     private ScoresForm scoresForm;
-    private BracketsView bracketsView;
+    private final BracketsView bracketsView;
 
     public Controller(Championship _championship, View _view) {
         championship = _championship;
@@ -160,11 +160,10 @@ public class Controller {
     }
 
     private void alertForException(Exception exception, View view) {
-        String message;
-        if (exception instanceof MyException)
-            message = exception.getMessage();
-        else
-            message = "Error! " + exception.getClass().getSimpleName();
+        String message = "";
+        if (!(exception instanceof MyException))
+            message = "Error! " + exception.getClass().getSimpleName() + " ";
+        message += exception.getMessage();
         view.showAlert(Alert.AlertType.ERROR, message);
     }
 }

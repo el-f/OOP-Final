@@ -19,10 +19,10 @@ import java.util.List;
 
 public class View {
     private BorderPane borderPane;
-    private Alert alert;
-    private Scene scene;
-    private String title;
-    private Stage stage;
+    private final Alert alert;
+    private final Scene scene;
+    private final String title;
+    private final Stage stage;
 
     public View(Stage _stage, String _title, int width, int height, boolean show) {
         stage = _stage;

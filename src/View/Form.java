@@ -7,8 +7,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 
 public abstract class Form {
-    protected BorderPane borderPane;
-    protected Button submitButton;
+    protected final BorderPane borderPane;
+    protected final Button submitButton;
 
     protected Form() {
         borderPane = new BorderPane();

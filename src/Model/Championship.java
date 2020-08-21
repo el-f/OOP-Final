@@ -5,9 +5,9 @@ import java.util.List;
 
 
 public class Championship {
-    private String[] quarterFinalists;
-    private String[] semiFinalists;
-    private String[] finalists;
+    private final String[] quarterFinalists;
+    private final String[] semiFinalists;
+    private final String[] finalists;
     private String champion;
 
     public enum Stages {Quarters, Semis, Finals}
