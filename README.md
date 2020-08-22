@@ -11,4 +11,4 @@ This project focuses on practicing:
 - Using Java/JavaFX advanced features.
 - Writing a readable "aesthetically pleasing" code.
 
-- Author - Elazar Fine
+Author - Elazar Fine
