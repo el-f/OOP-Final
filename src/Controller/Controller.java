@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Championship;
 import Model.Game;
-import Model.MyException;
 import Model.TennisGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,9 +80,9 @@ public class Controller {
                 scoresView.close();
             } catch (Exception exception) {
                 alertForException(exception, scoresView);
-                if (exception.getMessage().equals(Game.drawMsg))
+                if (exception.toString().equals(Game.drawMsg))
                     initScoresView(gameStage, gamePosition, true);
-                else if (exception.getMessage().equals(TennisGame.drawMsg))
+                else if (exception.toString().equals(TennisGame.drawMsg))
                     scoresForm.clearTextFields();
             }
         };
@@ -118,7 +117,8 @@ public class Controller {
         bracketsView.toggleButtonDisabled(
                 gameStage.equals(Quarters) ? gamePosition :
                         gameStage.equals(Semis) ? gamePosition + 4 :
-                                gameStage.equals(Finals) ? gamePosition + 6 : -1, disable
+                                gameStage.equals(Finals) ? gamePosition + 6 : -1,
+                disable
         );
     }
 
@@ -160,10 +160,6 @@ public class Controller {
     }
 
     private void alertForException(Exception exception, View view) {
-        String message = "";
-        if (!(exception instanceof MyException))
-            message = "Error! " + exception.getClass().getSimpleName() + " ";
-        message += exception.getMessage();
-        view.showAlert(Alert.AlertType.ERROR, message);
+        view.showAlert(Alert.AlertType.ERROR, exception.toString());
     }
 }
