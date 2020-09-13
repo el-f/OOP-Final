@@ -57,6 +57,7 @@ public class PlayersForm extends Form {
         tennisRB.setSelected(true);
         VBox type = new VBox(tennisRB, basketBallRB, footballRB);
         type.setAlignment(Pos.CENTER_LEFT);
+        type.setSpacing(5);
         type.setPadding(new Insets(0, 25, 0, 0));
         borderPane.setRight(type);
         showPlayers(players);
