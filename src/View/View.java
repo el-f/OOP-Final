@@ -80,9 +80,8 @@ public class View {
         return vBox;
     }
 
-    static void addCursorHandling(Region object, Pane pane) {
-        object.setOnMouseEntered(event -> pane.setCursor(Cursor.HAND));
-        object.setOnMouseExited(event -> pane.setCursor(Cursor.DEFAULT));
+    static void setCursorAsSelect(Region object) {
+        object.setCursor(Cursor.HAND);
     }
 
     public void showAlert(Alert.AlertType type, String message) {

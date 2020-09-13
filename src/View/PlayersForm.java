@@ -35,7 +35,7 @@ public class PlayersForm extends Form {
 
         submitButton.setText("Add participant");
         startBtn = new Button("Start Championship");
-        View.addCursorHandling(startBtn, borderPane);
+        View.setCursorAsSelect(startBtn);
         HBox buttonsBox = new HBox(submitButton, startBtn);
         buttonsBox.setSpacing(15);
         buttonsBox.setAlignment(Pos.CENTER);
@@ -52,7 +52,7 @@ public class PlayersForm extends Form {
         Arrays.asList(tennisRB, basketBallRB, footballRB)
                 .forEach(rb -> {
                     rb.setToggleGroup(toggleGroup);
-                    View.addCursorHandling(rb, borderPane);
+                    View.setCursorAsSelect(rb);
                 });
         tennisRB.setSelected(true);
         VBox type = new VBox(tennisRB, basketBallRB, footballRB);

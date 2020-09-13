@@ -17,7 +17,7 @@ public abstract class Form {
 
     public void addEventHandlerToSubmitButton(EventHandler<ActionEvent> eventHandler) {
         submitButton.setOnAction(eventHandler);
-        View.addCursorHandling(submitButton, borderPane);
+        View.setCursorAsSelect(submitButton);
         borderPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 submitButton.fire();

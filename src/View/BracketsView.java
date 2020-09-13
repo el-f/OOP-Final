@@ -35,7 +35,7 @@ public class BracketsView {
 
         getButtons().forEach(button -> {
             button.setText("Play Game");
-            View.addCursorHandling(button, borderPane);
+            View.setCursorAsSelect(button);
         });
     }
 
