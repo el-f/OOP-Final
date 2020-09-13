@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayersForm extends Form {
@@ -34,6 +35,7 @@ public class PlayersForm extends Form {
 
         submitButton.setText("Add participant");
         startBtn = new Button("Start Championship");
+        View.addCursorHandling(startBtn, borderPane);
         HBox buttonsBox = new HBox(submitButton, startBtn);
         buttonsBox.setSpacing(15);
         buttonsBox.setAlignment(Pos.CENTER);
@@ -47,9 +49,11 @@ public class PlayersForm extends Form {
         tennisRB = new RadioButton("Tennis");
         basketBallRB = new RadioButton("BasketBall");
         footballRB = new RadioButton("Football");
-        tennisRB.setToggleGroup(toggleGroup);
-        basketBallRB.setToggleGroup(toggleGroup);
-        footballRB.setToggleGroup(toggleGroup);
+        Arrays.asList(tennisRB, basketBallRB, footballRB)
+                .forEach(rb -> {
+                    rb.setToggleGroup(toggleGroup);
+                    View.addCursorHandling(rb, borderPane);
+                });
         tennisRB.setSelected(true);
         VBox type = new VBox(tennisRB, basketBallRB, footballRB);
         type.setAlignment(Pos.CENTER_LEFT);

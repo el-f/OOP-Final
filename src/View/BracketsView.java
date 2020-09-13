@@ -23,15 +23,20 @@ public class BracketsView {
     public BracketsView() {
         borderPane = new BorderPane();
         disableProperties = new boolean[]{false, false, false, false, true, true, true};
-        playQuarter0 = new Button("Play Game");
-        playQuarter1 = new Button("Play Game");
-        playQuarter2 = new Button("Play Game");
-        playQuarter3 = new Button("Play Game");
+        playQuarter0 = new Button();
+        playQuarter1 = new Button();
+        playQuarter2 = new Button();
+        playQuarter3 = new Button();
 
-        playSemi0 = new Button("Play Game");
-        playSemi1 = new Button("Play Game");
+        playSemi0 = new Button();
+        playSemi1 = new Button();
 
-        playFinals = new Button("Play Game");
+        playFinals = new Button();
+
+        getButtons().forEach(button -> {
+            button.setText("Play Game");
+            View.addCursorHandling(button, borderPane);
+        });
     }
 
     public void updateAll(List<String> quarterFinalists, List<String> semiFinalists, List<String> finalists,

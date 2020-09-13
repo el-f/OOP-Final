@@ -2,12 +2,11 @@ package View;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -79,6 +78,11 @@ public class View {
         vBox.setSpacing(spacing);
         vBox.setPadding(new Insets(0, 0, 0, 15));
         return vBox;
+    }
+
+    static void addCursorHandling(Region object, Pane pane) {
+        object.setOnMouseEntered(event -> pane.setCursor(Cursor.HAND));
+        object.setOnMouseExited(event -> pane.setCursor(Cursor.DEFAULT));
     }
 
     public void showAlert(Alert.AlertType type, String message) {
